@@ -29,18 +29,32 @@ ul{list-style:none;}
   margin:0 auto;
   padding:0 60px;
 }
+
+/* Ensure inner-page sections fill at least the viewport */
+.page-section{min-height:calc(100vh - 68px);}
+
 /* ---------- Top meta bar ---------- */
-.metabar{
+.metabar{display:none;}
+
+/* ---------- Fixed identity bar (hero only) ---------- */
+#topIdentity{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:98;
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:22px 60px;
-  font-size:14px;
-  letter-spacing:0.5px;
+  pointer-events:none;
+  transition:opacity .4s ease;
 }
-.metabar span:nth-child(2),.metabar span:nth-child(3){display:none;}
-.metabar.on-red{color:var(--cream);border-bottom:1px solid var(--line-on-red);}
-.metabar.on-cream{color:var(--red);border-bottom:1px solid var(--line-on-cream);}
+#topIdentity.hidden{opacity:0;}
+.ti-name,.ti-loc{
+  font-family:'Anton',sans-serif;
+  font-size:22px;
+  letter-spacing:1px;
+  color:var(--cream);
+}
 
 /* ---------- Fixed nav ---------- */
 nav{
@@ -63,10 +77,17 @@ nav.scrolled{
   font-size:22px;
   letter-spacing:1px;
   color:var(--cream);
-  transition:color .35s ease;
+  transition:color .35s ease, opacity .35s ease;
+  opacity:0;
 }
-nav.scrolled .logo{color:var(--red);}
-.navlinks{display:flex;gap:34px;}
+nav.scrolled .logo{color:var(--red);opacity:1;}
+.navlinks{
+  display:flex;
+  gap:34px;
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+}
 .navlinks a{
   font-size:13px;
   font-weight:600;
@@ -74,9 +95,10 @@ nav.scrolled .logo{color:var(--red);}
   color:var(--cream);
   text-transform:uppercase;
   transition:color .35s ease, opacity .2s ease;
-  opacity:0.85;
+  opacity:0.65;
 }
-.navlinks a:hover{opacity:1;}
+.navlinks a:hover,
+.navlinks a.active{opacity:1;}
 nav.scrolled .navlinks a{color:var(--red);}
 .navtoggle{display:none;}
 
@@ -101,6 +123,7 @@ nav.scrolled .navlinks a{color:var(--red);}
   font-size:14px;
   letter-spacing:3px;
   font-weight:600;
+  margin-top:28px;
   margin-bottom:22px;
   opacity:0.9;
 }
@@ -200,7 +223,7 @@ section{position:relative;}
 }
 .fact-list li span:last-child{font-weight:400;text-align:right;max-width:60%;}
 
-/* ---------- Approach (Vision & Mission) ---------- */
+/* ---------- Approach ---------- */
 .approach-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -226,11 +249,6 @@ section{position:relative;}
   position:absolute;
   left:0;
   opacity:0.7;
-}
-.approach-divider{
-  border:none;
-  border-top:1px solid var(--line-on-red);
-  margin:40px 0;
 }
 
 /* ---------- Experience timeline ---------- */
@@ -276,7 +294,7 @@ section{position:relative;}
   color:var(--red);
 }
 
-/* ---------- Awards / highlights ---------- */
+/* ---------- Awards ---------- */
 .award-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -313,7 +331,7 @@ section{position:relative;}
   opacity:0.92;
 }
 
-/* ---------- Skills / service ---------- */
+/* ---------- Skills ---------- */
 .skill-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -364,8 +382,6 @@ section{position:relative;}
   letter-spacing:0.5px;
   margin-top:40px;
 }
-
-/* ---------- Contact form ---------- */
 .contact-form{
   margin-top:56px;
   max-width:560px;
@@ -393,6 +409,17 @@ section{position:relative;}
 #formStatus.success{color:#c9f2c2;}
 #formStatus.error{color:#ffd0cc;}
 
+/* ---------- Scroll reveal ---------- */
+.reveal{
+  opacity:0;
+  transform:translateY(36px);
+  transition:opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
 footer{
   background:var(--red-dark);
   color:var(--cream);
@@ -407,12 +434,15 @@ footer{
 /* ---------- Responsive ---------- */
 @media (max-width:900px){
   .wrap,.metabar,nav,.section-inner{padding-left:26px;padding-right:26px;}
+  #topIdentity{padding-left:26px;padding-right:26px;}
   .about-grid,.approach-grid,.skill-grid{grid-template-columns:1fr;}
   .award-grid{grid-template-columns:1fr;}
   .tl-item{grid-template-columns:1fr;gap:10px;}
   .navlinks{
     position:fixed;
     top:0;right:-100%;
+    left:auto;
+    transform:none;
     height:100vh;
     width:70%;
     background:var(--red);
@@ -421,9 +451,11 @@ footer{
     align-items:flex-start;
     padding:40px;
     transition:right .35s ease;
+    z-index:150;
   }
   .navlinks.open{right:0;}
-  .navlinks a{color:var(--cream) !important;font-size:16px;}
+  .navlinks a{color:var(--cream) !important;font-size:16px;opacity:0.85;}
+  .navlinks a.active{opacity:1;}
   .navtoggle{
     display:block;
     background:none;border:none;

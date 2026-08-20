@@ -13,6 +13,16 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
+// Clean URLs: /approach → approach.html, etc.
+['approach', 'experience', 'awards', 'skills', 'contact'].forEach(page => {
+  app.get(`/${page}`, (_req, res) => {
+    res.sendFile(path.join(__dirname, `../frontend/${page}.html`));
+  });
+});
+
+// Serve frontend static files
+app.use(express.static(path.join(__dirname, '../frontend')));
+
 // Where submissions are stored until you wire up real email/DB.
 const MESSAGES_FILE = path.join(__dirname, 'messages.json');
 

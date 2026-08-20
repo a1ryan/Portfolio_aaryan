@@ -1,23 +1,32 @@
-// ---------- Nav scroll + mobile toggle ----------
-const nav = document.getElementById('mainNav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-});
-
-const toggle = document.getElementById('navToggle');
-const links = document.getElementById('navLinks');
-toggle.addEventListener('click', () => links.classList.toggle('open'));
-links.querySelectorAll('a').forEach(a =>
-  a.addEventListener('click', () => links.classList.remove('open'))
+// ---------- Scroll reveal ----------
+const revealTargets = document.querySelectorAll(
+  '.eyebrow, .sec-title, .hero-label, .hero-sub, .hero-cta, ' +
+  '.about-text, .fact-list, .approach-col, ' +
+  '.tl-item, .award-card, .skill-block, ' +
+  '.contact-row, .contact-form'
 );
 
-// ---------- Contact form ----------
-// Change this if your backend runs on a different host/port than the frontend.
-// During local dev with the included backend, this defaults to the same origin.
-const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? 'http://localhost:3001'
-  : '';
+revealTargets.forEach(el => el.classList.add('reveal'));
 
+document.querySelectorAll('.award-grid, .skill-grid, .approach-grid, .timeline').forEach(grid => {
+  grid.querySelectorAll(':scope > .reveal').forEach((child, i) => {
+    child.style.transitionDelay = `${i * 0.1}s`;
+  });
+});
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+revealTargets.forEach(el => revealObserver.observe(el));
+
+// ---------- Contact form ----------
+const API_BASE = '';
 const form = document.getElementById('contactForm');
 const status = document.getElementById('formStatus');
 
@@ -39,9 +48,7 @@ if (form) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-
       const data = await res.json();
-
       if (res.ok) {
         status.textContent = data.message || "Thanks! I'll get back to you soon.";
         status.className = 'success';
