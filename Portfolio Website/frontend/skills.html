@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills — Aaryan Chaturvedi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="components/nav.js" defer></script>
+
+  <style>
+    /* ===== SKILLS PAGE ===== */
+
+    /* --- Hero (INK with dot grid) --- */
+    .sk-hero {
+      padding: 130px 60px 0;
+      overflow: hidden;
+      background: var(--ink);
+      position: relative;
+    }
+    .sk-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(250,241,222,0.048) 1.2px, transparent 1.2px);
+      background-size: 26px 26px;
+      pointer-events: none;
+    }
+    .sk-hero > * { position: relative; z-index: 1; }
+
+    .sk-eyebrow {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--cream);
+      opacity: 0;
+      margin-bottom: 24px;
+    }
+
+    .sk-title-clip {
+      overflow: hidden;
+      line-height: 0.88;
+    }
+
+    .sk-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(80px, 14vw, 200px);
+      color: var(--cream);
+      display: block;
+      will-change: transform;
+      transform: translateY(110%);
+    }
+
+    .sk-title-outline {
+      -webkit-text-stroke: 2px var(--cream);
+      color: transparent;
+    }
+
+    .sk-hero-rule {
+      border: none;
+      border-top: 1px solid rgba(250,241,222,0.25);
+      margin: 48px 0 0;
+      opacity: 0;
+    }
+
+    .sk-hero-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 36px 0 0;
+      opacity: 0;
+    }
+
+    .sk-stat-row {
+      display: flex;
+      gap: 60px;
+    }
+
+    .sk-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .sk-stat-num {
+      font-family: 'Anton', sans-serif;
+      font-size: 52px;
+      color: var(--cream);
+      line-height: 1;
+    }
+
+    .sk-stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0.5;
+    }
+
+    .sk-hero-desc {
+      max-width: 300px;
+      font-size: 15px;
+      line-height: 1.8;
+      font-weight: 300;
+      color: var(--cream);
+      opacity: 0.65;
+      text-align: right;
+    }
+
+    /* --- Section wrapper --- */
+    .sk-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 100px 60px;
+    }
+
+    .sk-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 52px;
+    }
+    .sk-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line-on-cream);
+    }
+
+    .sk-label-light {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0.55;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 52px;
+    }
+    .sk-label-light::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(250,241,222,0.2);
+    }
+
+    /* --- Tech grid --- */
+    .sk-tech-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: var(--line-on-cream);
+      border: 1px solid var(--line-on-cream);
+    }
+
+    .sk-cat {
+      background: var(--cream);
+      padding: 38px 32px 44px;
+      opacity: 0;
+      transform: translateY(28px);
+    }
+
+    .sk-cat-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .sk-cat-icon {
+      width: 18px; height: 18px;
+      color: var(--red);
+      opacity: 0.5;
+      flex-shrink: 0;
+      transition: opacity 0.2s ease;
+    }
+    .sk-cat:hover .sk-cat-icon { opacity: 0.8; }
+
+    .sk-cat-num {
+      font-family: 'Anton', sans-serif;
+      font-size: 11px;
+      color: var(--red);
+      opacity: 0.45;
+      letter-spacing: 1px;
+    }
+
+    .sk-cat-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.7;
+    }
+
+    .sk-cat-rule {
+      border: none;
+      border-top: 1px solid var(--line-on-cream);
+      margin: 14px 0 22px;
+    }
+
+    .sk-chips {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .sk-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 500;
+      padding: 10px 16px;
+      border: 1.5px solid var(--line-on-cream);
+      border-radius: 8px;
+      color: var(--ink);
+      cursor: default;
+      transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease, transform 0.22s ease;
+      will-change: transform;
+      width: fit-content;
+      opacity: 0;
+      transform: translateX(-12px);
+    }
+
+    .sk-chip:hover {
+      background: var(--red);
+      color: var(--cream);
+      border-color: var(--red);
+      transform: translateX(8px) !important;
+    }
+
+    /* --- Marquee --- */
+    .sk-marquee-band {
+      background: var(--red);
+      overflow: hidden;
+      padding: 38px 0;
+      border-top: 1px solid rgba(250,241,222,0.15);
+      border-bottom: 1px solid rgba(250,241,222,0.15);
+    }
+
+    .sk-marquee-track {
+      display: flex;
+      width: max-content;
+      animation: skMarquee 32s linear infinite;
+    }
+    .sk-marquee-track:hover { animation-play-state: paused; }
+
+    .sk-marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding: 0 28px;
+      white-space: nowrap;
+    }
+
+    .sk-marquee-text {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(26px, 3.8vw, 50px);
+      color: var(--cream);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1;
+    }
+
+    .sk-marquee-sep {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cream);
+      opacity: 0.35;
+      flex-shrink: 0;
+    }
+
+    @keyframes skMarquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* --- Languages --- */
+    .sk-lang-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--line-on-cream);
+      border: 1px solid var(--line-on-cream);
+    }
+
+    .sk-lang-card {
+      background: var(--cream);
+      padding: 48px 42px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .sk-lang-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .sk-lang-name {
+      font-family: 'Anton', sans-serif;
+      font-size: 52px;
+      color: var(--ink);
+      line-height: 0.85;
+      text-transform: uppercase;
+    }
+
+    .sk-lang-level {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-top: 10px;
+    }
+
+    /* SVG ring */
+    .sk-ring-wrap {
+      width: 74px;
+      height: 74px;
+      flex-shrink: 0;
+    }
+    .sk-ring-wrap svg { transform: rotate(-90deg); }
+    .sk-ring-bg  { fill: none; stroke: var(--line-on-cream); stroke-width: 4; }
+    .sk-ring-fill {
+      fill: none;
+      stroke: var(--red);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-dasharray: 188.5;
+      stroke-dashoffset: 188.5;
+      transition: stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+    }
+    .sk-ring-fill.go { stroke-dashoffset: var(--target-offset); }
+
+    /* Progress bar */
+    .sk-lang-bar {
+      height: 2px;
+      background: var(--line-on-cream);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .sk-lang-bar-fill {
+      height: 100%;
+      width: 0;
+      background: var(--red);
+      border-radius: 2px;
+      transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
+    }
+
+    .sk-lang-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      font-weight: 300;
+      opacity: 0.6;
+    }
+
+    /* --- Coursework --- */
+    .sk-coursework {
+      background: var(--red);
+    }
+
+    .sk-course-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .sk-course-chip {
+      font-size: 14px;
+      font-weight: 400;
+      padding: 12px 24px;
+      border: 1.5px solid rgba(250,241,222,0.28);
+      border-radius: 8px;
+      color: var(--cream);
+      cursor: default;
+      opacity: 0;
+      transform: scale(0.92);
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .sk-course-chip:hover {
+      background: rgba(250,241,222,0.1);
+      border-color: rgba(250,241,222,0.55);
+    }
+
+    /* --- Red section (tech arsenal) --- */
+    .sk-red-section {
+      background: var(--red);
+      position: relative;
+      overflow: hidden;
+    }
+    .sk-red-section .sk-wrap { position: relative; z-index: 1; }
+    .sk-red-section .sk-label { color: var(--cream); opacity: 0.55; }
+    .sk-red-section .sk-label::after { background: rgba(250,241,222,0.22); }
+    .sk-red-section .sk-tech-grid { background: rgba(250,241,222,0.08); border-color: rgba(250,241,222,0.08); }
+
+    /* --- Ink dark section (languages) --- */
+    .sk-dark-section {
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+    .sk-dark-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(250,241,222,0.048) 1.2px, transparent 1.2px);
+      background-size: 26px 26px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .sk-dark-section .sk-wrap { position: relative; z-index: 1; }
+    .sk-dark-section .sk-label { color: var(--cream); opacity: 0.45; }
+    .sk-dark-section .sk-label::after { background: rgba(250,241,222,0.14); }
+    .sk-dark-section .sk-lang-grid { background: rgba(250,241,222,0.05); border-color: rgba(250,241,222,0.05); }
+
+    /* --- Responsive --- */
+    @media (max-width: 1100px) {
+      .sk-tech-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .sk-hero { padding: 110px 26px 0; }
+      .sk-wrap { padding: 80px 26px; }
+      .sk-hero-meta { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .sk-hero-desc { text-align: left; max-width: 100%; }
+      .sk-stat-row { gap: 32px; }
+      .sk-tech-grid { grid-template-columns: 1fr; }
+      .sk-lang-grid { grid-template-columns: 1fr; }
+      .sk-cat { padding: 30px 24px 36px; }
+      .sk-lang-card { padding: 38px 28px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sk-marquee-track { animation: none; }
+      .sk-ring-fill { transition: none; }
+      .sk-lang-bar-fill { transition: none; }
+      .sk-chip { transition: none; }
+    }
+  </style>
+</head>
+<body data-page="skills">
+
+  <!-- ======= HERO ======= -->
+  <section class="sk-hero">
+    <span class="sk-eyebrow" id="skEyebrow">05 &mdash; TOOLKIT</span>
+
+    <div class="sk-title-clip">
+      <span class="sk-title" id="skT1">SKILLS &amp;</span>
+    </div>
+    <div class="sk-title-clip">
+      <span class="sk-title sk-title-outline" id="skT2">ARSENAL</span>
+    </div>
+
+    <hr class="sk-hero-rule" id="skRule">
+
+    <div class="sk-hero-meta" id="skMeta">
+      <div class="sk-stat-row">
+        <div class="sk-stat">
+          <span class="sk-stat-num" id="cnt1">0</span>
+          <span class="sk-stat-label">Tools &amp; Platforms</span>
+        </div>
+        <div class="sk-stat">
+          <span class="sk-stat-num" id="cnt2">0</span>
+          <span class="sk-stat-label">Languages</span>
+        </div>
+        <div class="sk-stat">
+          <span class="sk-stat-num" id="cnt3">0</span>
+          <span class="sk-stat-label">Courses</span>
+        </div>
+      </div>
+      <p class="sk-hero-desc">A cross-functional toolkit spanning performance marketing, data analytics, design, and development.</p>
+    </div>
+  </section>
+
+  <!-- ======= TECHNICAL SKILLS ======= -->
+  <section class="sk-red-section">
+    <div class="sk-wrap">
+      <div class="sk-label" id="skLabelTech">Technical Arsenal</div>
+      <div class="sk-tech-grid">
+
+        <div class="sk-cat" data-cat="0">
+          <div class="sk-cat-head">
+            <span class="sk-cat-num">01</span>
+            <!-- Megaphone: Performance & Ads -->
+            <svg class="sk-cat-icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 4L5.5 7.5H3.5a.8.8 0 0 0-.8.8v1.4a.8.8 0 0 0 .8.8h2L14 14V4z"/>
+              <path d="M5.5 10.5l.8 3.5"/>
+              <path d="M16 6.5a3.5 3.5 0 0 1 0 5"/>
+            </svg>
+            <span class="sk-cat-title">Performance &amp; Ads</span>
+          </div>
+          <hr class="sk-cat-rule">
+          <div class="sk-chips">
+            <span class="sk-chip">Google Ads</span>
+            <span class="sk-chip">Meta Ads Manager</span>
+            <span class="sk-chip">SEO / Semrush</span>
+            <span class="sk-chip">AI / LLM Tools</span>
+          </div>
+        </div>
+
+        <div class="sk-cat" data-cat="1">
+          <div class="sk-cat-head">
+            <span class="sk-cat-num">02</span>
+            <!-- Bar chart: Analytics & Data -->
+            <svg class="sk-cat-icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2"   y="10" width="3" height="6" rx="0.4"/>
+              <rect x="7.5" y="6"  width="3" height="10" rx="0.4"/>
+              <rect x="13"  y="2"  width="3" height="14" rx="0.4"/>
+            </svg>
+            <span class="sk-cat-title">Analytics &amp; Data</span>
+          </div>
+          <hr class="sk-cat-rule">
+          <div class="sk-chips">
+            <span class="sk-chip">Google Analytics</span>
+            <span class="sk-chip">Power BI</span>
+            <span class="sk-chip">Tableau</span>
+            <span class="sk-chip">SQL</span>
+            <span class="sk-chip">Looker Studio</span>
+            <span class="sk-chip">Excel (Advanced)</span>
+            <span class="sk-chip">Python</span>
+            <span class="sk-chip">VBA</span>
+          </div>
+        </div>
+
+        <div class="sk-cat" data-cat="2">
+          <div class="sk-cat-head">
+            <span class="sk-cat-num">03</span>
+            <!-- Pen nib: Design & Creative -->
+            <svg class="sk-cat-icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2.5 15.5l3.5-.8L15 6.7l-3.2-3.2L2.8 12.5l-.3 3z"/>
+              <path d="M11.8 3.5l2 2L15 4.3l-1.3-1.3-1.9.5z"/>
+              <line x1="9" y1="6" x2="12" y2="9"/>
+            </svg>
+            <span class="sk-cat-title">Design &amp; Creative</span>
+          </div>
+          <hr class="sk-cat-rule">
+          <div class="sk-chips">
+            <span class="sk-chip">Figma</span>
+            <span class="sk-chip">Canva</span>
+            <span class="sk-chip">Photoshop</span>
+            <span class="sk-chip">CapCut</span>
+            <span class="sk-chip">Premiere Pro</span>
+          </div>
+        </div>
+
+        <div class="sk-cat" data-cat="3">
+          <div class="sk-cat-head">
+            <span class="sk-cat-num">04</span>
+            <!-- Code brackets: Web & Productivity -->
+            <svg class="sk-cat-icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6,5 2,9 6,13"/>
+              <polyline points="12,5 16,9 12,13"/>
+              <line x1="10.5" y1="3.5" x2="7.5" y2="14.5"/>
+            </svg>
+            <span class="sk-cat-title">Web &amp; Productivity</span>
+          </div>
+          <hr class="sk-cat-rule">
+          <div class="sk-chips">
+            <span class="sk-chip">HTML</span>
+            <span class="sk-chip">WordPress</span>
+            <span class="sk-chip">PowerPoint</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= COMPETENCIES MARQUEE ======= -->
+  <div class="sk-marquee-band">
+    <div class="sk-marquee-track">
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Performance Marketing</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Data-Driven Optimisation</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Agile Methodologies</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Cross-Team Collaboration</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Strategic Thinking</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Attention to Detail</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Communication</span><span class="sk-marquee-sep"></span></div>
+      <!-- duplicate for seamless loop -->
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Performance Marketing</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Data-Driven Optimisation</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Agile Methodologies</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Cross-Team Collaboration</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Strategic Thinking</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Attention to Detail</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Communication</span><span class="sk-marquee-sep"></span></div>
+    </div>
+  </div>
+
+  <!-- ======= LANGUAGES ======= -->
+  <section class="sk-dark-section">
+    <div class="sk-wrap">
+      <div class="sk-label" id="skLabelLang">Languages</div>
+      <div class="sk-lang-grid">
+
+        <!-- English -->
+        <div class="sk-lang-card" data-bar="95" data-offset="9.4">
+          <div class="sk-lang-top">
+            <div>
+              <div class="sk-lang-name">ENG</div>
+              <div class="sk-lang-level">Fluent</div>
+            </div>
+            <div class="sk-ring-wrap">
+              <svg width="74" height="74" viewBox="0 0 74 74">
+                <circle class="sk-ring-bg"   cx="37" cy="37" r="30"/>
+                <circle class="sk-ring-fill" cx="37" cy="37" r="30" style="--target-offset:9.4"/>
+              </svg>
+            </div>
+          </div>
+          <div class="sk-lang-bar"><div class="sk-lang-bar-fill"></div></div>
+          <p class="sk-lang-desc">Professional fluency across written and spoken communication, presentations, and strategic documents.</p>
+        </div>
+
+        <!-- French -->
+        <div class="sk-lang-card" data-bar="50" data-offset="94.25">
+          <div class="sk-lang-top">
+            <div>
+              <div class="sk-lang-name">FRA</div>
+              <div class="sk-lang-level">Intermediate</div>
+            </div>
+            <div class="sk-ring-wrap">
+              <svg width="74" height="74" viewBox="0 0 74 74">
+                <circle class="sk-ring-bg"   cx="37" cy="37" r="30"/>
+                <circle class="sk-ring-fill" cx="37" cy="37" r="30" style="--target-offset:94.25"/>
+              </svg>
+            </div>
+          </div>
+          <div class="sk-lang-bar"><div class="sk-lang-bar-fill"></div></div>
+          <p class="sk-lang-desc">Conversational level with solid reading comprehension. Actively improving through daily immersion.</p>
+        </div>
+
+        <!-- Hindi -->
+        <div class="sk-lang-card" data-bar="100" data-offset="0">
+          <div class="sk-lang-top">
+            <div>
+              <div class="sk-lang-name">HIN</div>
+              <div class="sk-lang-level">Native</div>
+            </div>
+            <div class="sk-ring-wrap">
+              <svg width="74" height="74" viewBox="0 0 74 74">
+                <circle class="sk-ring-bg"   cx="37" cy="37" r="30"/>
+                <circle class="sk-ring-fill" cx="37" cy="37" r="30" style="--target-offset:0"/>
+              </svg>
+            </div>
+          </div>
+          <div class="sk-lang-bar"><div class="sk-lang-bar-fill"></div></div>
+          <p class="sk-lang-desc">Mother tongue. Full command across all registers, contexts, and nuances of the language.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= COURSEWORK ======= -->
+  <section class="sk-coursework">
+    <div class="sk-wrap">
+      <div class="sk-label-light" id="skLabelCourse">Relevant Coursework</div>
+      <div class="sk-course-grid" id="skCourseGrid">
+        <span class="sk-course-chip">Corporate Strategy</span>
+        <span class="sk-course-chip">Data Analytics</span>
+        <span class="sk-course-chip">Project Management</span>
+        <span class="sk-course-chip">Strategic Management</span>
+        <span class="sk-course-chip">Market Research</span>
+        <span class="sk-course-chip">Python for Business</span>
+        <span class="sk-course-chip">Marketing Management</span>
+        <span class="sk-course-chip">CSR</span>
+        <span class="sk-course-chip">Salesforce</span>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ---- Hero entrance ----
+    const heroTl = gsap.timeline({ delay: 0.15 });
+
+    heroTl
+      .to('#skEyebrow', {
+        opacity: 0.9, y: 0, duration: 0.55, ease: 'power3.out'
+      })
+      .to('#skT1', {
+        y: '0%', duration: 1, ease: 'power4.out'
+      }, '-=0.25')
+      .to('#skT2', {
+        y: '0%', duration: 1, ease: 'power4.out'
+      }, '-=0.78')
+      .to('#skRule', {
+        opacity: 1, duration: 0.5, ease: 'power2.out'
+      }, '-=0.3')
+      .to('#skMeta', {
+        opacity: 1, y: 0, duration: 0.6, ease: 'power3.out'
+      }, '-=0.3');
+
+    // ---- Counter animation (fires with hero timeline) ----
+    function animateCount(el, target, suffix) {
+      gsap.to({ v: 0 }, {
+        v: target,
+        duration: 1.4,
+        delay: 0.8,
+        ease: 'power2.out',
+        onUpdate: function () {
+          el.textContent = Math.round(this.targets()[0].v) + (suffix || '');
+        }
+      });
+    }
+    animateCount(document.getElementById('cnt1'), 20, '+');
+    animateCount(document.getElementById('cnt2'), 3, '');
+    animateCount(document.getElementById('cnt3'), 9, '');
+
+    // ---- Section label reveals ----
+    ['#skLabelTech', '#skLabelLang', '#skLabelCourse'].forEach(sel => {
+      gsap.from(sel, {
+        opacity: 0, x: -18, duration: 0.55, ease: 'power3.out',
+        scrollTrigger: { trigger: sel, start: 'top 88%', once: true }
+      });
+    });
+
+    // ---- Tech category cards + chips ----
+    document.querySelectorAll('.sk-cat').forEach((cat) => {
+      const chips = cat.querySelectorAll('.sk-chip');
+
+      // Card slides up
+      gsap.to(cat, {
+        opacity: 1, y: 0, duration: 0.65, ease: 'power3.out',
+        scrollTrigger: { trigger: cat, start: 'top 82%', once: true }
+      });
+
+      // Chips stagger in from the left after card
+      gsap.to(chips, {
+        opacity: 1, x: 0,
+        stagger: 0.07,
+        duration: 0.5,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: cat, start: 'top 78%', once: true }
+      });
+    });
+
+    // ---- Language cards: slide + ring + bar ----
+    document.querySelectorAll('.sk-lang-card').forEach((card, i) => {
+      const bar  = card.querySelector('.sk-lang-bar-fill');
+      const ring = card.querySelector('.sk-ring-fill');
+      const barW = card.dataset.bar;
+
+      ScrollTrigger.create({
+        trigger: card,
+        start: 'top 80%',
+        once: true,
+        onEnter: () => {
+          // Card entrance
+          gsap.to(card, {
+            opacity: 1, y: 0,
+            duration: 0.7, delay: i * 0.15, ease: 'power3.out'
+          });
+          // Bar fill
+          bar.style.width = barW + '%';
+          // Ring fill
+          ring.classList.add('go');
+        }
+      });
+    });
+
+    // ---- Coursework chips ----
+    gsap.to('.sk-course-chip', {
+      opacity: 1, scale: 1,
+      stagger: 0.055,
+      duration: 0.45,
+      ease: 'back.out(1.5)',
+      scrollTrigger: {
+        trigger: '#skCourseGrid',
+        start: 'top 82%',
+        once: true
+      }
+    });
+  </script>
+
+</body>
+</html>

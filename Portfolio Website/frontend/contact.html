@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Aaryan Chaturvedi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="components/nav.js" defer></script>
+
+  <style>
+    /* ===== CONTACT PAGE ===== */
+
+    body[data-page="contact"] { background: var(--red); }
+
+    /* --- Hero canvas --- */
+    .ct-hero {
+      position: relative;
+      background: var(--red);
+      overflow: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #ctCanvas {
+      position: absolute;
+      inset: 0; width: 100%; height: 100%;
+      pointer-events: none;
+    }
+
+    .ct-inner {
+      position: relative; z-index: 2;
+      max-width: 1400px; margin: 0 auto;
+      padding: 130px 60px 100px;
+      flex: 1; display: flex; flex-direction: column;
+    }
+
+    /* Eyebrow */
+    .ct-eye {
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--cream); opacity: 0;
+      margin-bottom: 36px; display: block;
+    }
+
+    /* Main headline */
+    .ct-headline-wrap {
+      flex: 1;
+      display: flex; flex-direction: column;
+      justify-content: center;
+    }
+    .ct-clip { overflow: hidden; line-height: 0.86; }
+    .ct-word {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(64px, 12vw, 176px);
+      color: var(--cream);
+      display: block;
+      transform: translateY(110%);
+      will-change: transform;
+    }
+    .ct-word-out {
+      -webkit-text-stroke: 2px var(--cream);
+      color: transparent;
+    }
+
+    /* Contact links */
+    .ct-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 56px;
+      border-top: 1px solid rgba(250,241,222,0.2);
+      opacity: 0;
+    }
+    .ct-link {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(250,241,222,0.12);
+      font-size: clamp(16px, 2.2vw, 24px);
+      font-weight: 500;
+      color: var(--cream);
+      text-decoration: none;
+      letter-spacing: 0.2px;
+      transition: opacity 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .ct-link::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: var(--cream);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .ct-link:hover::before { transform: scaleX(1); }
+    .ct-link:hover { opacity: 0.85; }
+    .ct-link-arrow {
+      font-size: 20px;
+      transition: transform 0.3s ease;
+    }
+    .ct-link:hover .ct-link-arrow { transform: translate(4px, -4px); }
+    .ct-link-label {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      opacity: 0.4;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .ct-link-ico {
+      width: 14px; height: 14px;
+      flex-shrink: 0;
+      opacity: 0.9;
+    }
+
+    /* --- Form section (INK with dot grid) --- */
+    .ct-form-section {
+      background: var(--ink);
+      border-top: 1px solid rgba(250,241,222,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .ct-form-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(250,241,222,0.048) 1.2px, transparent 1.2px);
+      background-size: 26px 26px;
+      pointer-events: none;
+    }
+    .ct-form-inner { position: relative; z-index: 1; }
+    .ct-form-inner {
+      max-width: 1400px; margin: 0 auto;
+      padding: 100px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 100px;
+      align-items: start;
+    }
+    .ct-form-left {}
+    .ct-form-kicker {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--cream); opacity: 0.45;
+      display: block; margin-bottom: 24px;
+    }
+    .ct-form-tagline {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(36px, 5vw, 68px);
+      color: var(--cream); line-height: 0.9;
+      margin-bottom: 32px;
+    }
+    .ct-form-body {
+      font-size: 15px; line-height: 1.8;
+      font-weight: 300; color: var(--cream);
+      opacity: 0.65; max-width: 340px;
+    }
+
+    /* Form */
+    .ct-form {
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .ct-field {
+      position: relative;
+      margin-bottom: 32px;
+    }
+    .ct-field input,
+    .ct-field textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(250,241,222,0.25);
+      padding: 14px 0 12px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      color: var(--cream);
+      transition: border-color 0.3s ease;
+    }
+    .ct-field input::placeholder,
+    .ct-field textarea::placeholder { color: rgba(250,241,222,0.35); }
+    .ct-field input:focus,
+    .ct-field textarea:focus { outline: none; border-bottom-color: var(--cream); }
+    .ct-field::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--cream);
+      transition: width 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+    .ct-field:focus-within::after { width: 100%; }
+    .ct-field textarea { resize: vertical; min-height: 120px; }
+
+    .ct-submit {
+      align-self: flex-start;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 16px 36px;
+      background: var(--cream); color: var(--red);
+      border: 1.5px solid var(--cream);
+      border-radius: 8px; cursor: pointer;
+      transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+      will-change: transform;
+    }
+    .ct-submit:hover {
+      background: transparent; color: var(--cream);
+    }
+    #ctStatus {
+      font-size: 13px; margin-top: 12px; min-height: 18px;
+    }
+    #ctStatus.success { color: #c9f2c2; }
+    #ctStatus.error   { color: #ffd0cc; }
+
+    @media (max-width: 900px) {
+      .ct-inner { padding: 110px 26px 80px; }
+      .ct-form-inner { grid-template-columns: 1fr; gap: 50px; padding: 80px 26px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #ctCanvas { display: none; }
+    }
+  </style>
+</head>
+<body data-page="contact">
+
+  <!-- ======= HERO ======= -->
+  <section class="ct-hero">
+    <canvas id="ctCanvas"></canvas>
+
+    <div class="ct-inner">
+      <span class="ct-eye" id="ctEye">06 &mdash; Get In Touch</span>
+
+      <div class="ct-headline-wrap">
+        <div class="ct-clip"><span class="ct-word" id="ctW1">LET'S</span></div>
+        <div class="ct-clip"><span class="ct-word" id="ctW2">BUILD</span></div>
+        <div class="ct-clip"><span class="ct-word ct-word-out" id="ctW3">SOMETHING</span></div>
+        <div class="ct-clip"><span class="ct-word ct-word-out" id="ctW4">GREAT.</span></div>
+      </div>
+
+      <div class="ct-links" id="ctLinks">
+        <a class="ct-link" href="tel:+33769939039">
+          <div>
+            <span class="ct-link-label">
+              <svg class="ct-link-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3h2.5l1.3 3-1.8 1.3c.9 2.1 2.2 3.4 4.3 4.3L10.6 9.2 13.5 10.5V13a1 1 0 0 1-1 1C6.5 14 2 9.5 2 4a1 1 0 0 1 1-1z"/>
+              </svg>
+              Phone
+            </span><br>
+            +33 07 69 93 90 39
+          </div>
+          <span class="ct-link-arrow">↗</span>
+        </a>
+        <a class="ct-link" href="mailto:aaryan.chaturvedi@edhec.com">
+          <div>
+            <span class="ct-link-label">
+              <svg class="ct-link-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1.5" y="3.5" width="13" height="9" rx="1"/>
+                <polyline points="1.5,3.5 8,9 14.5,3.5"/>
+              </svg>
+              Email
+            </span><br>
+            aaryan.chaturvedi@edhec.com
+          </div>
+          <span class="ct-link-arrow">↗</span>
+        </a>
+        <a class="ct-link" href="https://linkedin.com/in/aaryan-chaturvedi" target="_blank" rel="noopener">
+          <div>
+            <span class="ct-link-label">
+              <svg class="ct-link-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1.5" y="1.5" width="13" height="13" rx="2"/>
+                <line x1="5.5" y1="7" x2="5.5" y2="11.5"/>
+                <circle cx="5.5" cy="5" r="0.6" fill="currentColor" stroke="none"/>
+                <path d="M8.5 11.5V9a2 2 0 0 1 4 0v2.5"/>
+                <line x1="8.5" y1="7" x2="8.5" y2="11.5"/>
+              </svg>
+              LinkedIn
+            </span><br>
+            linkedin.com/in/aaryan-chaturvedi
+          </div>
+          <span class="ct-link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FORM ======= -->
+  <div class="ct-form-section">
+    <div class="ct-form-inner">
+      <div class="ct-form-left" id="ctFormLeft">
+        <span class="ct-form-kicker">Send a message</span>
+        <div class="ct-form-tagline">Got a project<br>in mind?</div>
+        <p class="ct-form-body">Whether it's a marketing challenge, a collaboration idea, or just wanting to connect — I'd love to hear from you.</p>
+      </div>
+      <div id="ctFormRight">
+        <form id="contactForm" class="ct-form">
+          <div class="ct-field">
+            <input type="text" name="name" placeholder="Your name" required>
+          </div>
+          <div class="ct-field">
+            <input type="email" name="email" placeholder="Your email" required>
+          </div>
+          <div class="ct-field">
+            <textarea name="message" placeholder="Your message" required></textarea>
+          </div>
+          <button type="submit" class="ct-submit btn-mag">Send Message</button>
+          <p id="ctStatus"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ---- Canvas particles (cream on red) ----
+    const canvas = document.getElementById('ctCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const pts = Array.from({ length: 40 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.4 + 0.4,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25,
+      a: Math.random() * 0.12 + 0.03
+    }));
+
+    function drawCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < pts.length; i++) {
+        for (let j = i + 1; j < pts.length; j++) {
+          const dx = pts[i].x - pts[j].x;
+          const dy = pts[i].y - pts[j].y;
+          const d  = Math.sqrt(dx * dx + dy * dy);
+          if (d < 130) {
+            ctx.strokeStyle = `rgba(250,241,222,${0.055 * (1 - d / 130)})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(pts[i].x, pts[i].y);
+            ctx.lineTo(pts[j].x, pts[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      pts.forEach(p => {
+        ctx.fillStyle = `rgba(250,241,222,${p.a})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+      });
+      requestAnimationFrame(drawCanvas);
+    }
+    drawCanvas();
+
+    // ---- Headline entrance ----
+    const tl = gsap.timeline({ delay: 0.2 });
+    tl.to('#ctEye', { opacity: 0.65, duration: 0.55, ease: 'power3.out' })
+      .to('#ctW1',  { y: '0%', duration: 0.95, ease: 'power4.out' }, '-=0.25')
+      .to('#ctW2',  { y: '0%', duration: 0.95, ease: 'power4.out' }, '-=0.72')
+      .to('#ctW3',  { y: '0%', duration: 0.95, ease: 'power4.out' }, '-=0.72')
+      .to('#ctW4',  { y: '0%', duration: 0.95, ease: 'power4.out' }, '-=0.72')
+      .to('#ctLinks',{ opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4');
+
+    // ---- Form section reveals ----
+    gsap.from('#ctFormLeft > *', {
+      opacity: 0, y: 24, stagger: 0.12, duration: 0.7, ease: 'power3.out',
+      scrollTrigger: { trigger: '#ctFormLeft', start: 'top 82%', once: true }
+    });
+    gsap.from('#ctFormRight .ct-field', {
+      opacity: 0, y: 20, stagger: 0.1, duration: 0.6, ease: 'power3.out',
+      scrollTrigger: { trigger: '#ctFormRight', start: 'top 82%', once: true }
+    });
+
+    // ---- Magnetic submit ----
+    const submitBtn = document.querySelector('.ct-submit');
+    if (submitBtn) {
+      submitBtn.addEventListener('mousemove', e => {
+        const r = submitBtn.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width / 2) * 0.4;
+        const y = (e.clientY - r.top  - r.height / 2) * 0.4;
+        gsap.to(submitBtn, { x, y, duration: 0.35, ease: 'power2.out' });
+      });
+      submitBtn.addEventListener('mouseleave', () => {
+        gsap.to(submitBtn, { x: 0, y: 0, duration: 0.65, ease: 'elastic.out(1, 0.5)' });
+      });
+    }
+
+    // ---- Contact form submission ----
+    const form   = document.getElementById('contactForm');
+    const status = document.getElementById('ctStatus');
+
+    if (form) {
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        status.textContent = 'Sending...';
+        status.className = '';
+
+        const payload = {
+          name:    form.name.value.trim(),
+          email:   form.email.value.trim(),
+          message: form.message.value.trim(),
+        };
+
+        try {
+          const res  = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          const data = await res.json();
+          if (res.ok) {
+            status.textContent = data.message || "Thanks! I'll get back to you soon.";
+            status.className = 'success';
+            form.reset();
+          } else {
+            status.textContent = data.message || 'Something went wrong. Please try again.';
+            status.className = 'error';
+          }
+        } catch {
+          status.textContent = 'Could not reach the server.';
+          status.className = 'error';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

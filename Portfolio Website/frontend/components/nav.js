@@ -11,10 +11,10 @@
       <a class="logo" href="/">AARYAN CHATURVEDI</a>
       <div class="navlinks" id="navLinks">
         <a href="/"           data-page="home">Overview</a>
-        <a href="/approach"   data-page="approach">Approach</a>
         <a href="/experience" data-page="experience">Experience</a>
         <a href="/awards"     data-page="awards">Awards</a>
         <a href="/skills"     data-page="skills">Skills</a>
+        <a href="/approach"   data-page="approach">Approach</a>
         <a href="/contact"    data-page="contact">Contact</a>
       </div>
       <button class="navtoggle" id="navToggle">&#9776;</button>

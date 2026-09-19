@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experience — Aaryan Chaturvedi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="components/nav.js" defer></script>
+
+  <style>
+    /* ===== EXPERIENCE PAGE ===== */
+
+    /* --- Header (INK with dot grid) --- */
+    .ex-hero {
+      background: var(--ink);
+      padding: 130px 60px 80px;
+      overflow: hidden;
+      position: relative;
+    }
+    .ex-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(250,241,222,0.048) 1.2px, transparent 1.2px);
+      background-size: 26px 26px;
+      pointer-events: none;
+    }
+    .ex-hero > * { position: relative; z-index: 1; }
+    .ex-eyebrow {
+      font-size: 12px; font-weight: 600; letter-spacing: 3px;
+      color: var(--cream); opacity: 0; margin-bottom: 22px;
+      display: block; text-transform: uppercase;
+    }
+    .ex-clip { overflow: hidden; line-height: 0.84; }
+    .ex-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(80px, 14vw, 200px);
+      color: var(--cream); display: block;
+      transform: translateY(110%); will-change: transform;
+    }
+    .ex-title-out {
+      -webkit-text-stroke: 2px var(--cream); color: transparent;
+    }
+
+    /* --- Career stats belt (RED) --- */
+    .ex-stats {
+      background: var(--red);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .ex-stat {
+      padding: 52px 44px;
+      border-right: 1px solid rgba(250,241,222,0.15);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .ex-stat:last-child { border-right: none; }
+    .ex-stat-num {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(44px, 6vw, 80px);
+      color: var(--cream); line-height: 1;
+    }
+    .ex-stat-label {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--cream); opacity: 0.45;
+    }
+
+    /* ============ CARDS SECTION (CREAM) ============ */
+    .ex-cards-section {
+      background: var(--cream);
+      padding: 100px 0 130px;
+      position: relative;
+    }
+    .ex-cards-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(163,35,29,0.07) 1.2px, transparent 1.2px);
+      background-size: 26px 26px;
+      pointer-events: none;
+    }
+
+    .ex-cards-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ex-section-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--red); opacity: 0.45;
+      margin-bottom: 44px;
+    }
+
+    /* ---- Individual card ---- */
+    .ex-card {
+      position: relative;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(163,35,29,0.1);
+      border-radius: 20px;
+      padding: 52px 56px;
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.9) inset,
+        0 8px 40px rgba(34,7,5,0.08),
+        0 2px 8px rgba(34,7,5,0.05);
+      opacity: 0;
+      transform: translateY(50px);
+      cursor: default;
+    }
+
+    /* Top highlight shimmer line */
+    .ex-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 56px; right: 56px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(163,35,29,0.12), transparent);
+      pointer-events: none;
+    }
+
+    /* Left red accent bar */
+    .ex-card-bar {
+      position: absolute;
+      left: 0; top: 20px; bottom: 20px;
+      width: 3px;
+      background: var(--red);
+      border-radius: 0 3px 3px 0;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+    .ex-card:hover .ex-card-bar { transform: scaleY(1); }
+
+    /* Company watermark */
+    .ex-card-wm {
+      position: absolute;
+      right: -14px; top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(90px, 13vw, 155px);
+      color: rgba(163,35,29,0.05);
+      letter-spacing: -2px;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    /* Gradient glow blob — alternates per card */
+    .ex-card-glow {
+      position: absolute;
+      width: 380px; height: 380px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(163,35,29,0.06), transparent 65%);
+    }
+
+    /* ---- Card header ---- */
+    .ex-card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 30px;
+      position: relative; z-index: 1;
+    }
+
+    .ex-card-num {
+      font-family: 'Anton', sans-serif;
+      font-size: 12px; letter-spacing: 4px;
+      color: var(--red); display: block; margin-bottom: 10px;
+    }
+
+    .ex-card-company {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(36px, 5vw, 60px);
+      color: var(--ink); line-height: 0.88;
+      letter-spacing: 0.5px;
+    }
+
+    .ex-card-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    /* ---- Company logo ---- */
+    .ex-card-logo-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 160px;
+      height: 60px;
+      margin-bottom: 4px;
+    }
+    .ex-card-logo {
+      width: 160px;
+      height: 60px;
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: darken;
+    }
+
+    .ex-card-date {
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--ink); opacity: 0.35;
+    }
+
+    .ex-card-location {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--red);
+      background: rgba(163,35,29,0.07);
+      border: 1px solid rgba(163,35,29,0.15);
+      border-radius: 20px;
+      padding: 5px 16px;
+    }
+
+    /* ---- Divider ---- */
+    .ex-card-divider {
+      height: 1px;
+      background: linear-gradient(90deg, rgba(163,35,29,0.18), rgba(163,35,29,0.04));
+      margin-bottom: 26px;
+      position: relative; z-index: 1;
+    }
+
+    /* ---- Role row ---- */
+    .ex-card-role-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
+      position: relative; z-index: 1;
+    }
+
+    .ex-card-role {
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px; font-weight: 700;
+      color: var(--ink);
+    }
+
+    .ex-card-type {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--red);
+      background: rgba(163,35,29,0.08);
+      border: 1px solid rgba(163,35,29,0.2);
+      border-radius: 6px;
+      padding: 4px 12px;
+    }
+
+    /* ---- Bullets ---- */
+    .ex-card-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative; z-index: 1;
+    }
+
+    .ex-card-bullet {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 14.5px; line-height: 1.75; font-weight: 300;
+      color: rgba(34,7,5,0.72);
+      padding: 11px 16px;
+      border-radius: 10px;
+      background: rgba(163,35,29,0.03);
+      border: 1px solid rgba(163,35,29,0.07);
+      transition: background 0.22s ease, border-color 0.22s ease;
+    }
+    .ex-card-bullet:hover {
+      background: rgba(163,35,29,0.06);
+      border-color: rgba(163,35,29,0.12);
+    }
+
+    .ex-bullet-dot {
+      width: 5px; height: 5px;
+      background: var(--red); border-radius: 50%;
+      flex-shrink: 0; margin-top: 9px;
+    }
+
+    .ex-card-bullet em {
+      font-style: normal;
+      color: var(--red); font-weight: 600;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 900px) {
+      .ex-hero { padding: 110px 26px 70px; }
+      .ex-stats { grid-template-columns: repeat(2, 1fr); }
+      .ex-stat { padding: 36px 26px; }
+      .ex-cards-inner { padding: 0 20px; gap: 16px; }
+      .ex-card { padding: 36px 28px; }
+      .ex-card-head { flex-direction: column; }
+      .ex-card-meta { align-items: flex-start; }
+      .ex-card-wm { display: none; }
+    }
+  </style>
+</head>
+<body data-page="experience">
+
+  <!-- ======= HEADER ======= -->
+  <section class="ex-hero">
+    <span class="ex-eyebrow" id="exEye">03 &mdash; Career So Far</span>
+    <div class="ex-clip"><span class="ex-title" id="exT1">EXPERI</span></div>
+    <div class="ex-clip"><span class="ex-title ex-title-out" id="exT2">ENCE.</span></div>
+  </section>
+
+  <!-- ======= STATS ======= -->
+  <div class="ex-stats" id="exStats">
+    <div class="ex-stat">
+      <span class="ex-stat-num" data-count="2" data-suffix="+">0</span>
+      <span class="ex-stat-label">Years of Experience</span>
+    </div>
+    <div class="ex-stat">
+      <span class="ex-stat-num" data-count="4" data-suffix="">0</span>
+      <span class="ex-stat-label">Companies</span>
+    </div>
+    <div class="ex-stat">
+      <span class="ex-stat-num" data-count="18" data-suffix="%">0</span>
+      <span class="ex-stat-label">CTR Improvement</span>
+    </div>
+    <div class="ex-stat">
+      <span class="ex-stat-num" data-count="40" data-suffix="%">0</span>
+      <span class="ex-stat-label">Reporting Time Saved</span>
+    </div>
+  </div>
+
+  <!-- ======= CARDS ======= -->
+  <section class="ex-cards-section">
+    <div class="ex-cards-inner">
+      <p class="ex-section-label">Work Experience &mdash; 4 Roles</p>
+
+      <!-- ── Card 1: Edenred ── -->
+      <div class="ex-card" id="exE0">
+        <div class="ex-card-bar"></div>
+        <div class="ex-card-glow" style="top:-140px; right:-80px;"></div>
+        <div class="ex-card-wm">EDENRED</div>
+
+        <div class="ex-card-head">
+          <div>
+            <span class="ex-card-num">01</span>
+            <div class="ex-card-company">EDENRED</div>
+          </div>
+          <div class="ex-card-meta">
+            <div class="ex-card-logo-wrap">
+              <img src="assets/edenred-logo" class="ex-card-logo" alt="Edenred">
+            </div>
+            <span class="ex-card-date">Aug 2025 &ndash; Feb 2026</span>
+            <span class="ex-card-location">Paris, France</span>
+          </div>
+        </div>
+
+        <div class="ex-card-divider"></div>
+
+        <div class="ex-card-role-row">
+          <span class="ex-card-role">Growth Marketing Intern</span>
+          <span class="ex-card-type">INTERNSHIP</span>
+        </div>
+
+        <div class="ex-card-bullets">
+          <div class="ex-card-bullet"><div class="ex-bullet-dot"></div><span>Managed Google &amp; Meta Ads across 5+ business units; improved CTR by <em>18%</em> and reduced CPC via budget &amp; targeting optimisations.</span></div>
+          <div class="ex-card-bullet"><div class="ex-bullet-dot"></div><span>Built automated Power BI dashboards for 30+ KPIs, cutting manual reporting time by <em>40%</em> and improving stakeholder visibility.</span></div>
+          <div class="ex-card-bullet"><div class="ex-bullet-dot"></div><span>Analysed campaign performance to identify improvement opportunities — keywords, match types — that supported ROI growth.</span></div>
+          <div class="ex-card-bullet"><div class="ex-bullet-dot"></div><span>Collaborated with creative teams to produce ad visuals aligned to brand standards using Canva and Figma.</span></div>
+        </div>
+      </div>
+
+      <!-- ── Card 2: Calyxia ── -->
+      <div class="ex-card" id="exE1">
+        <div class="ex-card-bar"></div>
+        <div class="ex-card-glow" style="bottom:-140px; left:-80px;"></div>
+        <div class="ex-card-wm">CALYXIA</div>
+
+        <div class="ex-card-head">
+          <div>
+            <span class="ex-card-num">02</span>
+            <div class="ex-card-company">CALYXIA</div>
+          </div>
+          <div class="ex-card-meta">
+            <div class="ex-card-logo-wrap">
+              <img src="assets/calyxia-logo.jpeg" class="ex-card-logo" alt="Calyxia">
+            </div>
+            <span class="ex-card-date">Apr 2026 &ndash; Aug 2026</span>
+            <span class="ex-card-location">Paris, France</span>
+          </div>
+        </div>
+
+        <div class="ex-card-divider"></div>
+
+        <div class="ex-card-role-row">
+          <span class="ex-card-role">Marketing &amp; Communications Intern</span>
+          <span class="ex-card-type">INTERNSHIP</span>
+        </div>
+
+        <div class="ex-card-bullets">
+          <div class="ex-card-bullet"><div class="ex-bullet-dot"></div><span>Managed LinkedIn content and performance tracking, growing post engagement and views by <em>10%</em> through a refined content strategy.</span></div>
+          <div class="ex-card-bullet"><div class="ex-bullet-dot"></div><span>Built the full campaign plan and visuals for a newly launched product, increasing its visibility across target audiences.</span></div>
+          <div class="ex-card-bullet"><div class="ex-bullet-dot"></div><span>Redesigned website content and page flow (WordPress), increasing lead-form submissions by <em>5%</em> and strengthening client engagement.</span></div>
+          <div class="ex-card-bullet"><div class="ex-bullet-dot"></div><span>Coordinated with 3 Business Units, managing distinct communication needs while directing brand photoshoots, videoshoots, and event banners.</span></div>
+        </div>
+      </div>
+
+      <!-- ── Card 3: Invesco ── -->
+      <div class="ex-card" id="exE2">
+        <div class="ex-card-bar"></div>
+        <div class="ex-card-glow" style="top:-140px; right:-80px;"></div>
+        <div class="ex-card-wm">INVESCO</div>
+
+        <div class="ex-card-head">
+          <div>
+            <span class="ex-card-num">03</span>
+            <div class="ex-card-company">INVESCO</div>
+          </div>
+          <div class="ex-card-meta">
+            <div class="ex-card-logo-wrap">
+              <img src="assets/invesco-logo.jpg" class="ex-card-logo" alt="Invesco">
+            </div>
+            <span class="ex-card-date">May 2023 &ndash; Jun 2024</span>
+            <span class="ex-card-location">India</span>
+          </div>
+        </div>
+
+        <div class="ex-card-divider"></div>
+
+        <div class="ex-card-role-row">
+          <span class="ex-card-role">Social Media &amp; SEO Intern</span>
+          <span class="ex-card-type">INTERNSHIP</span>
+        </div>
+
+        <div class="ex-card-bullets">
+          <div class="ex-card-bullet"><div class="ex-bullet-dot"></div><span>Developed and optimised websites and lead-gen landing pages, helping increase lead conversion by <em>12%</em> through content clarity improvements.</span></div>
+          <div class="ex-card-bullet"><div class="ex-bullet-dot"></div><span>Owned LinkedIn and social media end-to-end &mdash; planning the content calendar and publishing posts, increasing followers &amp; engagement.</span></div>
+          <div class="ex-card-bullet"><div class="ex-bullet-dot"></div><span>Improved website performance through on-page SEO: keywords, internal linking, and page structure optimisation.</span></div>
+        </div>
+      </div>
+
+      <!-- ── Card 4: EPAM ── -->
+      <div class="ex-card" id="exE3">
+        <div class="ex-card-bar"></div>
+        <div class="ex-card-glow" style="bottom:-140px; left:-80px;"></div>
+        <div class="ex-card-wm">EPAM</div>
+
+        <div class="ex-card-head">
+          <div>
+            <span class="ex-card-num">04</span>
+            <div class="ex-card-company">EPAM</div>
+          </div>
+          <div class="ex-card-meta">
+            <div class="ex-card-logo-wrap">
+              <img src="assets/epam-logo.jpg" class="ex-card-logo" alt="EPAM">
+            </div>
+            <span class="ex-card-date">Jan 2022 &ndash; Apr 2024</span>
+            <span class="ex-card-location">India</span>
+          </div>
+        </div>
+
+        <div class="ex-card-divider"></div>
+
+        <div class="ex-card-role-row">
+          <span class="ex-card-role">Product &amp; Business Analyst</span>
+          <span class="ex-card-type">FULL-TIME</span>
+        </div>
+
+        <div class="ex-card-bullets">
+          <div class="ex-card-bullet"><div class="ex-bullet-dot"></div><span>Improved website frontend through HTML and layout changes, increasing user time-on-site by <em>30%</em> and session depth by <em>25%</em>.</span></div>
+          <div class="ex-card-bullet"><div class="ex-bullet-dot"></div><span>Improved integration by testing workflows, documenting use cases, and coordinating feedback loops for automation enhancements.</span></div>
+          <div class="ex-card-bullet"><div class="ex-bullet-dot"></div><span>Collaborated in Agile sprints to deliver UX improvements that increased platform engagement and reduced manual work by <em>25%</em>.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ---- Header entrance ----
+    const tl = gsap.timeline({ delay: 0.15 });
+    tl.to('#exEye', { opacity: 0.85, duration: 0.55, ease: 'power3.out' })
+      .to('#exT1',  { y: '0%', duration: 1.0, ease: 'power4.out' }, '-=0.25')
+      .to('#exT2',  { y: '0%', duration: 1.0, ease: 'power4.out' }, '-=0.75');
+
+    // ---- Stat counters ----
+    document.querySelectorAll('.ex-stat-num[data-count]').forEach(el => {
+      const target = parseInt(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      ScrollTrigger.create({
+        trigger: el, start: 'top 88%', once: true,
+        onEnter: () => {
+          gsap.from(el, { opacity: 0, y: 20, duration: 0.6, ease: 'power3.out' });
+          gsap.to({ v: 0 }, {
+            v: target, duration: 1.4, ease: 'power2.out',
+            onUpdate: function () {
+              el.textContent = Math.round(this.targets()[0].v) + suffix;
+            }
+          });
+        }
+      });
+    });
+
+    // ---- Card scroll reveal + hover ----
+    document.querySelectorAll('.ex-card').forEach((card, i) => {
+
+      // Scroll-in animation
+      gsap.to(card, {
+        opacity: 1, y: 0,
+        duration: 0.9, ease: 'power3.out',
+        delay: i * 0.05,
+        scrollTrigger: { trigger: card, start: 'top 87%', once: true }
+      });
+
+      // Bullet stagger
+      gsap.from(card.querySelectorAll('.ex-card-bullet'), {
+        opacity: 0, x: -16, stagger: 0.07, duration: 0.55, ease: 'power3.out',
+        scrollTrigger: { trigger: card, start: 'top 82%', once: true }
+      });
+
+      // Hover lift via GSAP (avoids CSS/GSAP transform conflict)
+      card.addEventListener('mouseenter', () => {
+        gsap.to(card, { y: -8, duration: 0.35, ease: 'power2.out', overwrite: 'auto' });
+        gsap.to(card, {
+          boxShadow: '0 1px 0 rgba(255,255,255,0.95) inset, 0 20px 60px rgba(34,7,5,0.13), 0 4px 12px rgba(34,7,5,0.07)',
+          background: 'rgba(255,255,255,0.88)',
+          duration: 0.35, ease: 'power2.out'
+        });
+      });
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, { y: 0, duration: 0.5, ease: 'power2.inOut', overwrite: 'auto' });
+        gsap.to(card, {
+          boxShadow: '0 1px 0 rgba(255,255,255,0.9) inset, 0 8px 40px rgba(34,7,5,0.08), 0 2px 8px rgba(34,7,5,0.05)',
+          background: 'rgba(255,255,255,0.72)',
+          duration: 0.5, ease: 'power2.inOut'
+        });
+      });
+    });
+  </script>
+</body>
+</html>

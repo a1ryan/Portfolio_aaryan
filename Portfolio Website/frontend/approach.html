@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Approach — Aaryan Chaturvedi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="components/nav.js" defer></script>
+
+  <style>
+    /* ===== APPROACH PAGE ===== */
+
+    /* --- Header (RED) --- */
+    .ap-hero {
+      background: var(--red);
+      padding: 130px 60px 90px;
+      overflow: hidden;
+      position: relative;
+    }
+    .ap-eyebrow {
+      font-size: 12px; font-weight: 600; letter-spacing: 3px;
+      color: var(--cream); opacity: 0; margin-bottom: 22px;
+      display: block; text-transform: uppercase;
+    }
+    .ap-clip { overflow: hidden; line-height: 0.84; }
+    .ap-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(80px, 14vw, 200px);
+      color: var(--cream);
+      display: block;
+      transform: translateY(110%);
+      will-change: transform;
+    }
+    .ap-title-out {
+      -webkit-text-stroke: 2px var(--cream);
+      color: transparent;
+    }
+    .ap-hero-rule {
+      border: none; border-top: 1px solid rgba(250,241,222,0.25);
+      margin: 48px 0 0; opacity: 0;
+    }
+    .ap-hero-sub {
+      padding: 28px 0 0;
+      font-size: 15px; font-weight: 300;
+      line-height: 1.75; max-width: 520px;
+      color: var(--cream); opacity: 0;
+    }
+
+    /* --- Vision (INK with dot grid) --- */
+    .ap-vision {
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+    .ap-vision::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(250,241,222,0.048) 1.2px, transparent 1.2px);
+      background-size: 26px 26px;
+      pointer-events: none;
+    }
+    .ap-vision-inner { position: relative; z-index: 1; }
+    .ap-vision-inner {
+      max-width: 1400px; margin: 0 auto;
+      padding: 110px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .ap-section-num {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(100px, 16vw, 220px);
+      line-height: 0.82;
+      -webkit-text-stroke: 1.5px rgba(250,241,222,0.2);
+      color: transparent;
+      user-select: none;
+    }
+    .ap-vision-right {}
+    .ap-section-kicker {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      color: var(--cream); opacity: 0.5;
+      text-transform: uppercase; margin-bottom: 20px;
+      display: block;
+    }
+    .ap-vision-headline {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(40px, 5.5vw, 76px);
+      color: var(--cream);
+      line-height: 0.9;
+      margin-bottom: 32px;
+    }
+    .ap-vision-text {
+      font-size: 17px; line-height: 1.8;
+      font-weight: 300; color: var(--cream);
+      opacity: 0.88; max-width: 520px;
+    }
+
+    /* floating ring background element */
+    .ap-ring {
+      position: absolute;
+      right: -80px; top: 50%;
+      transform: translateY(-50%);
+      width: 480px; height: 480px;
+      border: 1px solid rgba(250,241,222,0.07);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .ap-ring-2 {
+      position: absolute;
+      right: 40px; top: 50%;
+      transform: translateY(-50%);
+      width: 280px; height: 280px;
+      border: 1px solid rgba(250,241,222,0.06);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* --- Mission (cream) --- */
+    .ap-mission {
+      background: var(--cream);
+      padding: 110px 60px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .ap-mission-header {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 60px;
+      align-items: flex-end;
+      margin-bottom: 70px;
+    }
+    .ap-section-num-cream {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(80px, 12vw, 160px);
+      line-height: 0.82;
+      -webkit-text-stroke: 1.5px rgba(36,18,16,0.12);
+      color: transparent;
+      user-select: none;
+    }
+    .ap-mission-label {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(40px, 6vw, 86px);
+      color: var(--red);
+      line-height: 0.9;
+      padding-bottom: 12px;
+    }
+
+    /* principle cards with 3D tilt */
+    .ap-principles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--line-on-cream);
+      border: 1px solid var(--line-on-cream);
+    }
+    .ap-card {
+      background: var(--cream);
+      padding: 48px 44px;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    .ap-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--red);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 0;
+    }
+    .ap-card:hover::after { opacity: 0.03; }
+    .ap-card-num {
+      font-family: 'Anton', sans-serif;
+      font-size: 64px;
+      -webkit-text-stroke: 1.5px var(--red);
+      color: transparent;
+      opacity: 0.18;
+      line-height: 1;
+      margin-bottom: 14px;
+      display: block;
+      position: relative; z-index: 1;
+    }
+    .ap-card h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 17px; font-weight: 700;
+      text-transform: none; letter-spacing: 0;
+      color: var(--red); margin-bottom: 14px;
+      position: relative; z-index: 1;
+    }
+    .ap-card p {
+      font-size: 14.5px; line-height: 1.75;
+      font-weight: 300; color: var(--ink);
+      position: relative; z-index: 1;
+    }
+    .ap-card-accent {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 3px;
+      background: var(--red);
+      transition: width 0.4s ease;
+    }
+    .ap-card:hover .ap-card-accent { width: 100%; }
+
+    .ap-card-icon {
+      display: block;
+      width: 24px; height: 24px;
+      color: var(--red);
+      opacity: 0.55;
+      margin-bottom: 12px;
+      position: relative; z-index: 1;
+      transition: opacity 0.25s ease;
+    }
+    .ap-card:hover .ap-card-icon { opacity: 0.85; }
+
+    /* --- Closing tagline (INK with dot grid) --- */
+    .ap-close {
+      background: var(--ink);
+      padding: 90px 60px;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .ap-close::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(250,241,222,0.048) 1.2px, transparent 1.2px);
+      background-size: 26px 26px;
+      pointer-events: none;
+    }
+    .ap-close-words { position: relative; z-index: 1; }
+    .ap-close-words {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(20px, 4vw, 60px);
+      flex-wrap: wrap;
+    }
+    .ap-close-word {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(28px, 5vw, 72px);
+      color: var(--cream);
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    .ap-close-sep {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(250,241,222,0.35);
+    }
+
+    /* --- Red mission section --- */
+    .ap-mission-red {
+      background: var(--red);
+      position: relative;
+      overflow: hidden;
+    }
+    .ap-mission-red .ap-mission { background: transparent; position: relative; z-index: 1; }
+    .ap-mission-red .ap-section-num-cream {
+      -webkit-text-stroke-color: rgba(250,241,222,0.2);
+    }
+    .ap-mission-red .ap-mission-label { color: var(--cream); }
+    .ap-mission-red .ap-principles {
+      background: rgba(250,241,222,0.08);
+      border-color: rgba(250,241,222,0.08);
+    }
+
+    @media (max-width: 900px) {
+      .ap-hero { padding: 110px 26px 70px; }
+      .ap-vision-inner { grid-template-columns: 1fr; gap: 32px; padding: 80px 26px; }
+      .ap-section-num { font-size: 80px; }
+      .ap-mission { padding: 80px 26px; }
+      .ap-principles { grid-template-columns: 1fr; }
+      .ap-mission-header { grid-template-columns: 1fr; gap: 12px; }
+      .ap-close { padding: 70px 26px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ap-card { will-change: auto; }
+    }
+  </style>
+</head>
+<body data-page="approach">
+
+  <!-- ======= HEADER ======= -->
+  <section class="ap-hero">
+    <span class="ap-eyebrow" id="apEye">02 &mdash; How I Work</span>
+    <div class="ap-clip"><span class="ap-title" id="apT1">APPROACH</span></div>
+    <div class="ap-clip"><span class="ap-title ap-title-out" id="apT2">&amp; MINDSET</span></div>
+    <hr class="ap-hero-rule" id="apRule">
+    <p class="ap-hero-sub" id="apSub">The philosophy behind how I research, build, and measure every campaign and strategy.</p>
+  </section>
+
+  <!-- ======= VISION ======= -->
+  <section class="ap-vision">
+    <div class="ap-ring"></div>
+    <div class="ap-ring-2"></div>
+    <div class="ap-vision-inner">
+      <div class="ap-section-num" id="apVNum">01</div>
+      <div class="ap-vision-right" id="apVText">
+        <span class="ap-section-kicker">Vision</span>
+        <h2 class="ap-vision-headline">Turn Data<br>Into Decisions</h2>
+        <p class="ap-vision-text">
+          To build marketing that is measurable, creative, and grounded in what actually moves the
+          needle — for a brand, a campaign, or a business unit. Every action should be traceable to
+          an outcome, and every insight should lead to a smarter decision.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= MISSION ======= -->
+  <section class="ap-mission-red">
+    <div class="ap-mission">
+      <div class="ap-mission-header">
+        <div class="ap-section-num-cream" id="apMNum">02</div>
+        <div class="ap-mission-label" id="apMLabel">MISSION &amp;<br>PRINCIPLES</div>
+      </div>
+      <div class="ap-principles" id="apPrinciples">
+
+        <div class="ap-card" data-tilt>
+          <span class="ap-card-num">01</span>
+          <!-- Bar chart: Measure Everything -->
+          <svg class="ap-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="14" width="4" height="7" rx="0.6"/>
+            <rect x="10" y="9"  width="4" height="12" rx="0.6"/>
+            <rect x="17" y="4"  width="4" height="17" rx="0.6"/>
+          </svg>
+          <h3>Measure Everything</h3>
+          <p>Combine performance marketing with data-driven optimisation across paid media, SEO, and analytics. If it can be tracked, it should be.</p>
+          <div class="ap-card-accent"></div>
+        </div>
+
+        <div class="ap-card" data-tilt>
+          <span class="ap-card-num">02</span>
+          <!-- Network nodes: Collaborate -->
+          <svg class="ap-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <circle cx="12" cy="5"  r="2.5"/>
+            <circle cx="5"  cy="19" r="2.5"/>
+            <circle cx="19" cy="19" r="2.5"/>
+            <line x1="12" y1="7.5"  x2="5"  y2="16.5"/>
+            <line x1="12" y1="7.5"  x2="19" y2="16.5"/>
+            <line x1="7.5" y1="19"  x2="16.5" y2="19"/>
+          </svg>
+          <h3>Collaborate Across Boundaries</h3>
+          <p>Work across creative, product, and business units to align messaging, surface insights, and build toward shared goals without siloes.</p>
+          <div class="ap-card-accent"></div>
+        </div>
+
+        <div class="ap-card" data-tilt>
+          <span class="ap-card-num">03</span>
+          <!-- Gear: Automate -->
+          <svg class="ap-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+          <h3>Automate the Routine</h3>
+          <p>Build dashboards and automated reporting pipelines that make performance permanently visible and free up time for strategic thinking.</p>
+          <div class="ap-card-accent"></div>
+        </div>
+
+        <div class="ap-card" data-tilt>
+          <span class="ap-card-num">04</span>
+          <!-- Target: Execute with Precision -->
+          <svg class="ap-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <circle cx="12" cy="12" r="9"/>
+            <circle cx="12" cy="12" r="5"/>
+            <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+          </svg>
+          <h3>Execute with Precision</h3>
+          <p>Bring proactive, detail-oriented execution to every campaign, brief, and stakeholder relationship — speed without sacrificing quality.</p>
+          <div class="ap-card-accent"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CLOSING ======= -->
+  <div class="ap-close" id="apClose">
+    <div class="ap-close-words">
+      <span class="ap-close-word">PROACTIVE</span>
+      <span class="ap-close-sep"></span>
+      <span class="ap-close-word">DATA-DRIVEN</span>
+      <span class="ap-close-sep"></span>
+      <span class="ap-close-word">CREATIVE</span>
+    </div>
+  </div>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ---- Header entrance ----
+    const tl = gsap.timeline({ delay: 0.15 });
+    tl.to('#apEye',  { opacity: 0.85, duration: 0.55, ease: 'power3.out' })
+      .to('#apT1',   { y: '0%', duration: 1.0, ease: 'power4.out' }, '-=0.25')
+      .to('#apT2',   { y: '0%', duration: 1.0, ease: 'power4.out' }, '-=0.75')
+      .to('#apRule', { opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.35')
+      .to('#apSub',  { opacity: 0.7, duration: 0.6, ease: 'power3.out' }, '-=0.4');
+
+    // ---- Vision section ----
+    gsap.from('#apVNum', {
+      opacity: 0, x: -60, duration: 0.9, ease: 'power3.out',
+      scrollTrigger: { trigger: '.ap-vision', start: 'top 78%', once: true }
+    });
+    gsap.from('#apVText > *', {
+      opacity: 0, y: 28, stagger: 0.12, duration: 0.7, ease: 'power3.out',
+      scrollTrigger: { trigger: '#apVText', start: 'top 80%', once: true }
+    });
+
+    // ---- Mission header ----
+    gsap.from('#apMNum', {
+      opacity: 0, x: -40, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: '#apMNum', start: 'top 82%', once: true }
+    });
+    gsap.from('#apMLabel', {
+      opacity: 0, y: 20, duration: 0.7, ease: 'power3.out', delay: 0.1,
+      scrollTrigger: { trigger: '#apMLabel', start: 'top 82%', once: true }
+    });
+
+    // ---- Principle cards ----
+    gsap.from('.ap-card', {
+      opacity: 0, y: 40, stagger: 0.12, duration: 0.7, ease: 'power3.out',
+      scrollTrigger: { trigger: '#apPrinciples', start: 'top 80%', once: true }
+    });
+
+    // ---- 3D tilt on principle cards ----
+    document.querySelectorAll('[data-tilt]').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width  - 0.5;
+        const y = (e.clientY - r.top)  / r.height - 0.5;
+        gsap.to(card, {
+          rotationY: x * 14, rotationX: -y * 14,
+          transformPerspective: 900,
+          ease: 'power2.out', duration: 0.4
+        });
+      });
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          rotationY: 0, rotationX: 0,
+          ease: 'elastic.out(1, 0.4)', duration: 0.9
+        });
+      });
+    });
+
+    // ---- Closing tagline ----
+    gsap.to('.ap-close-word', {
+      opacity: 1, y: 0, stagger: 0.2, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: '#apClose', start: 'top 82%', once: true }
+    });
+  </script>
+</body>
+</html>

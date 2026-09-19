@@ -7,16 +7,20 @@ Express backend that currently handles the contact form.
 
 ```
 portfolio Aaryan/
-├─ frontend/
-│  ├─ index.html      # the site itself
-│  ├─ styles.css
-│  └─ script.js       # nav behavior + contact form submission
-├─ backend/
-│  ├─ server.js        # Express app, currently just /api/contact + /api/health
-│  ├─ package.json
-│  └─ .env.example      # copy to .env and fill in before adding email/DB
-├─ CVs/                 # source CVs (not linked from the site)
-└─ README.md
+├─ CVs/                        # source CVs
+├─ Aaryan_Chaturvedi_Marketing_Portfolio.pdf
+├─ Reference Assets/
+│  └─ Calyxia/                 # source images/PDFs for a future case-study section
+└─ Portfolio Website/          # this project
+   ├─ frontend/
+   │  ├─ index.html      # the site itself
+   │  ├─ styles.css
+   │  └─ script.js       # nav behavior + contact form submission
+   ├─ backend/
+   │  ├─ server.js        # Express app, currently just /api/contact + /api/health
+   │  ├─ package.json
+   │  └─ .env.example      # copy to .env and fill in before adding email/DB
+   └─ README.md
 ```
 
 ## Running locally

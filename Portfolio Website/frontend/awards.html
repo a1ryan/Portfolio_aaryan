@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Awards — Aaryan Chaturvedi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="components/nav.js" defer></script>
+
+  <style>
+    /* ===== AWARDS PAGE ===== */
+
+    /* --- Header (red) --- */
+    .aw-hero {
+      background: var(--red);
+      padding: 130px 60px 90px;
+      overflow: hidden;
+      position: relative;
+    }
+    .aw-eyebrow {
+      font-size: 12px; font-weight: 600; letter-spacing: 3px;
+      color: var(--cream); opacity: 0; margin-bottom: 22px;
+      display: block; text-transform: uppercase;
+    }
+    .aw-clip { overflow: hidden; line-height: 0.84; }
+    .aw-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(80px, 14vw, 200px);
+      color: var(--cream); display: block;
+      transform: translateY(110%); will-change: transform;
+    }
+    .aw-title-out {
+      -webkit-text-stroke: 2px var(--cream); color: transparent;
+    }
+    .aw-hero-sub {
+      margin-top: 48px;
+      padding-top: 36px;
+      border-top: 1px solid rgba(250,241,222,0.2);
+      font-size: 15px; font-weight: 300;
+      color: var(--cream); opacity: 0;
+      max-width: 520px; line-height: 1.7;
+    }
+
+    /* --- Award rows (alternating cream/red) --- */
+    .aw-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 70px;
+      padding: 80px 60px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      max-width: 100%;
+    }
+
+    /* Hover: sliding background accent */
+    .aw-row::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.55s cubic-bezier(0.16,1,0.3,1);
+      pointer-events: none;
+    }
+    .aw-cream::after { background: rgba(163,35,29,0.04); }
+    .aw-red::after   { background: rgba(250,241,222,0.06); }
+    .aw-row:hover::after { transform: scaleX(1); }
+
+    /* Left accent bar on hover */
+    .aw-row::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+    .aw-cream::before { background: var(--red); }
+    .aw-red::before   { background: var(--cream); }
+    .aw-row:hover::before { transform: scaleY(1); }
+
+    .aw-cream { background: var(--cream); color: var(--ink); }
+    .aw-red   { background: var(--red);   color: var(--cream); }
+
+    /* separators */
+    .aw-row + .aw-row { border-top: 1px solid; }
+    .aw-cream + .aw-red   { border-color: rgba(163,35,29,0.15); }
+    .aw-red   + .aw-cream { border-color: rgba(250,241,222,0.15); }
+
+    .aw-num {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(70px, 10vw, 140px);
+      line-height: 0.85;
+      -webkit-text-stroke: 1.5px;
+      color: transparent;
+      user-select: none;
+      transition: transform 0.4s ease;
+      will-change: transform;
+      position: relative; z-index: 1;
+    }
+    .aw-cream .aw-num { -webkit-text-stroke-color: rgba(36,18,16,0.14); }
+    .aw-red   .aw-num { -webkit-text-stroke-color: rgba(250,241,222,0.22); }
+    .aw-row:hover .aw-num { transform: scale(1.04) translateX(4px); }
+
+    .aw-content {
+      position: relative; z-index: 1;
+      opacity: 0;
+      transform: translateX(30px);
+    }
+
+    .aw-meta {
+      display: flex; align-items: center;
+      gap: 16px; margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .aw-rank {
+      font-family: 'Anton', sans-serif;
+      font-size: 13px; letter-spacing: 2px;
+      padding: 5px 14px;
+      border-radius: 8px;
+    }
+    .aw-cream .aw-rank { background: var(--red); color: var(--cream); }
+    .aw-red   .aw-rank { background: var(--cream); color: var(--red); }
+
+    .aw-org {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      opacity: 0.45;
+    }
+
+    .aw-name {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(24px, 3.5vw, 48px);
+      line-height: 0.92;
+      margin-bottom: 18px;
+    }
+    .aw-cream .aw-name { color: var(--ink); }
+    .aw-red   .aw-name { color: var(--cream); }
+
+    .aw-desc {
+      font-size: 15px; line-height: 1.75;
+      font-weight: 300; max-width: 520px;
+    }
+    .aw-cream .aw-desc { opacity: 0.75; }
+    .aw-red   .aw-desc { opacity: 0.8; }
+
+    /* ---- PDF Modal ---- */
+    .pdf-modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(34,7,5,0.82);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .pdf-modal-overlay.is-open { opacity: 1; pointer-events: all; }
+    .pdf-modal {
+      position: relative;
+      width: min(92vw, 960px);
+      height: min(90vh, 800px);
+      background: var(--cream);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 40px 120px rgba(34,7,5,0.45);
+      transform: translateY(28px) scale(0.97);
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+      display: flex; flex-direction: column;
+    }
+    .pdf-modal-overlay.is-open .pdf-modal { transform: translateY(0) scale(1); }
+    .pdf-modal-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px;
+      background: var(--ink);
+      flex-shrink: 0;
+    }
+    .pdf-modal-title {
+      font-family: 'Anton', sans-serif; font-size: 16px;
+      letter-spacing: 1.5px; color: var(--cream); text-transform: uppercase;
+    }
+    .pdf-modal-actions { display: flex; align-items: center; gap: 10px; }
+    .pdf-modal-download {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--cream); opacity: 0.65;
+      text-decoration: none; padding: 6px 14px;
+      border: 1px solid rgba(250,241,222,0.25); border-radius: 6px;
+      transition: opacity 0.2s ease, border-color 0.2s ease;
+    }
+    .pdf-modal-download:hover { opacity: 1; border-color: rgba(250,241,222,0.6); }
+    .pdf-modal-close {
+      width: 32px; height: 32px; border: none; cursor: pointer;
+      background: rgba(250,241,222,0.1); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s ease;
+    }
+    .pdf-modal-close:hover { background: rgba(250,241,222,0.2); }
+    .pdf-modal-close svg { width: 14px; height: 14px; stroke: var(--cream); }
+    #pdfContainer { flex: 1; overflow: hidden; }
+
+    .aw-view-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 20px;
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 8px; padding: 10px 20px;
+      cursor: pointer;
+      transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease;
+      position: relative; z-index: 1;
+    }
+    .aw-cream .aw-view-btn {
+      color: var(--red); background: rgba(163,35,29,0.07);
+      border: 1px solid rgba(163,35,29,0.2);
+    }
+    .aw-cream .aw-view-btn:hover { background: var(--red); color: var(--cream); border-color: var(--red); }
+    .aw-red .aw-view-btn {
+      color: var(--cream); background: rgba(250,241,222,0.1);
+      border: 1px solid rgba(250,241,222,0.25);
+    }
+    .aw-red .aw-view-btn:hover { background: var(--cream); color: var(--red); border-color: var(--cream); }
+    .aw-view-btn svg { width: 14px; height: 14px; stroke: currentColor; flex-shrink: 0; }
+
+    @media (max-width: 900px) {
+      .aw-hero { padding: 110px 26px 70px; }
+      .aw-row { grid-template-columns: 1fr; gap: 16px; padding: 56px 26px; }
+      .aw-num { font-size: 64px; }
+    }
+  </style>
+</head>
+<body data-page="awards">
+
+  <!-- ======= PDF MODAL ======= -->
+  <div class="pdf-modal-overlay" id="pdfOverlay" role="dialog" aria-modal="true" aria-label="Presentation">
+    <div class="pdf-modal">
+      <div class="pdf-modal-bar">
+        <span class="pdf-modal-title" id="pdfModalTitle">Presentation</span>
+        <div class="pdf-modal-actions">
+          <a class="pdf-modal-download" id="pdfDownloadLink" href="#" download>Download PDF</a>
+          <button class="pdf-modal-close" id="pdfModalClose" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div id="pdfContainer" style="flex:1;overflow:hidden;"></div>
+    </div>
+  </div>
+
+  <!-- ======= HEADER ======= -->
+  <section class="aw-hero">
+    <span class="aw-eyebrow" id="awEye">04 &mdash; Projects &amp; Recognition</span>
+    <div class="aw-clip"><span class="aw-title" id="awT1">RECOG</span></div>
+    <div class="aw-clip"><span class="aw-title aw-title-out" id="awT2">NITION.</span></div>
+    <p class="aw-hero-sub" id="awSub">Competition wins, leadership recognition, and case competition placements from 2023–2026.</p>
+  </section>
+
+  <!-- ======= AWARD ROWS ======= -->
+
+  <div class="aw-row aw-cream">
+    <div class="aw-num">01</div>
+    <div class="aw-content">
+      <div class="aw-meta">
+        <span class="aw-rank">1ST PLACE</span>
+        <span class="aw-org">Renault Group</span>
+      </div>
+      <h2 class="aw-name">Business Innovation<br>Challenge</h2>
+      <p class="aw-desc">Delivered the winning go-to-market and monetisation strategy across three growth segments. Competed against teams from top European business schools.</p>
+      <button class="aw-view-btn" data-pdf="assets/renault-presentation.pdf" data-pdf-title="Renault — Business Innovation Challenge" onclick="openPdfModal(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        View Presentation
+      </button>
+    </div>
+  </div>
+
+  <div class="aw-row aw-red">
+    <div class="aw-num">02</div>
+    <div class="aw-content">
+      <div class="aw-meta">
+        <span class="aw-rank">2ND PLACE</span>
+        <span class="aw-org">Procter &amp; Gamble</span>
+      </div>
+      <h2 class="aw-name">Product Strategy<br>Pitch</h2>
+      <p class="aw-desc">Designed an insight-led product positioning and a full entry plan for a regional market launch. Runner-up in a highly competitive field of 30+ teams.</p>
+      <button class="aw-view-btn" data-pdf="assets/pg-presentation.pdf" data-pdf-title="P&G — Product Strategy Pitch" onclick="openPdfModal(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        View Presentation
+      </button>
+    </div>
+  </div>
+
+  <div class="aw-row aw-cream">
+    <div class="aw-num">03</div>
+    <div class="aw-content">
+      <div class="aw-meta">
+        <span class="aw-rank">TOP 5%</span>
+        <span class="aw-org">L&rsquo;Or&eacute;al</span>
+      </div>
+      <h2 class="aw-name">Brandstorm<br>2025</h2>
+      <p class="aw-desc">Co-created an AI-integrated grooming product with a cross-functional global rollout roadmap, placing in the top 5% of all international participants.</p>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:20px;">
+        <button class="aw-view-btn" style="margin-top:0;" data-pdf="assets/loreal-certificate.pdf" data-pdf-title="L'Oréal Brandstorm — Certificate" onclick="openPdfModal(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+          View Certificate
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="aw-row aw-red">
+    <div class="aw-num">04</div>
+    <div class="aw-content">
+      <div class="aw-meta">
+        <span class="aw-rank">LEADERSHIP</span>
+        <span class="aw-org">EDHEC Business School</span>
+      </div>
+      <h2 class="aw-name">Marketing Lead,<br>Indian Culture Assoc.</h2>
+      <p class="aw-desc">Led a 30-member team to plan and execute 3+ multicultural events with 500+ attendees, managing full event marketing from concept to delivery.</p>
+    </div>
+  </div>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ---- Header entrance ----
+    const tl = gsap.timeline({ delay: 0.15 });
+    tl.to('#awEye', { opacity: 0.75, duration: 0.55, ease: 'power3.out' })
+      .to('#awT1',  { y: '0%', duration: 1.0, ease: 'power4.out' }, '-=0.25')
+      .to('#awT2',  { y: '0%', duration: 1.0, ease: 'power4.out' }, '-=0.75')
+      .to('#awSub', { opacity: 0.78, duration: 0.6, ease: 'power3.out' }, '-=0.4');
+
+    // ---- Award rows: content slides in ----
+    document.querySelectorAll('.aw-content').forEach((el, i) => {
+      gsap.to(el, {
+        opacity: 1, x: 0,
+        duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 82%', once: true }
+      });
+    });
+
+    // ---- Award numbers parallax drift ----
+    document.querySelectorAll('.aw-num').forEach(el => {
+      gsap.from(el, {
+        opacity: 0, x: -30, duration: 0.7, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+      });
+    });
+
+    // ---- Row entrance: subtle scale ----
+    document.querySelectorAll('.aw-row').forEach((row, i) => {
+      gsap.from(row, {
+        clipPath: 'inset(0 0 100% 0)',
+        duration: 0.75,
+        ease: 'power3.inOut',
+        delay: i * 0.05,
+        scrollTrigger: { trigger: row, start: 'top 90%', once: true }
+      });
+    });
+
+    // ---- PDF Modal ----
+    const overlay    = document.getElementById('pdfOverlay');
+    const pdfContainer = document.getElementById('pdfContainer');
+    const pdfTitle   = document.getElementById('pdfModalTitle');
+    const pdfDL      = document.getElementById('pdfDownloadLink');
+
+    function openPdfModal(btn) {
+      const pdf   = btn.dataset.pdf;
+      const title = btn.dataset.pdfTitle || 'Presentation';
+
+      // Fresh embed each time — prevents Chrome/Google Drive interception
+      pdfContainer.innerHTML = '';
+      const embed = document.createElement('embed');
+      embed.src   = pdf;
+      embed.type  = 'application/pdf';
+      embed.style.cssText = 'width:100%;height:100%;border:none;display:block;';
+      pdfContainer.appendChild(embed);
+
+      pdfTitle.textContent = title;
+      pdfDL.href           = pdf;
+      pdfDL.download       = pdf.split('/').pop();
+      overlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePdfModal() {
+      overlay.classList.remove('is-open');
+      document.body.style.overflow = '';
+      setTimeout(() => { pdfContainer.innerHTML = ''; }, 350);
+    }
+
+    document.getElementById('pdfModalClose').addEventListener('click', closePdfModal);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closePdfModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePdfModal(); });
+  </script>
+</body>
+</html>
