@@ -274,13 +274,30 @@
     }
 
     @media (max-width: 900px) {
-      .ap-hero { padding: 110px 26px 70px; }
-      .ap-vision-inner { grid-template-columns: 1fr; gap: 32px; padding: 80px 26px; }
-      .ap-section-num { font-size: 80px; }
-      .ap-mission { padding: 80px 26px; }
+      .ap-hero { padding: 110px 22px 64px; }
+      .ap-vision-inner { grid-template-columns: 1fr; gap: 28px; padding: 72px 22px; }
+      .ap-section-num { font-size: 72px; }
+      .ap-mission { padding: 72px 22px; }
       .ap-principles { grid-template-columns: 1fr; }
-      .ap-mission-header { grid-template-columns: 1fr; gap: 12px; }
-      .ap-close { padding: 70px 26px; }
+      .ap-mission-header { grid-template-columns: 1fr; gap: 10px; }
+      .ap-close { padding: 64px 22px; }
+    }
+    @media (max-width: 640px) {
+      .ap-hero { padding: 96px 18px 52px; }
+      .ap-hero-sub { font-size: 14px; }
+      .ap-vision-inner { padding: 56px 18px; gap: 20px; }
+      .ap-vision-headline { font-size: clamp(32px, 10vw, 56px); margin-bottom: 20px; }
+      .ap-vision-text { font-size: 15px; }
+      .ap-section-num { font-size: 60px; }
+      .ap-mission { padding: 56px 18px; }
+      .ap-section-num-cream { font-size: clamp(60px, 16vw, 120px); }
+      .ap-mission-label { font-size: clamp(32px, 10vw, 60px); }
+      .ap-card { padding: 34px 26px; }
+      .ap-card-num { font-size: 48px; }
+      .ap-card h3 { font-size: 15px; }
+      .ap-card p { font-size: 13.5px; }
+      .ap-close { padding: 52px 18px; }
+      .ap-close-word { font-size: clamp(22px, 7vw, 48px); }
     }
     @media (prefers-reduced-motion: reduce) {
       .ap-card { will-change: auto; }

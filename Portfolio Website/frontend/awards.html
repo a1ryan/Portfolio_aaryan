@@ -228,9 +228,32 @@
     .aw-view-btn svg { width: 14px; height: 14px; stroke: currentColor; flex-shrink: 0; }
 
     @media (max-width: 900px) {
-      .aw-hero { padding: 110px 26px 70px; }
-      .aw-row { grid-template-columns: 1fr; gap: 16px; padding: 56px 26px; }
+      .aw-hero { padding: 110px 22px 64px; }
+      .aw-row { grid-template-columns: 1fr; gap: 12px; padding: 48px 22px; }
       .aw-num { font-size: 64px; }
+    }
+    @media (max-width: 640px) {
+      .aw-hero { padding: 96px 18px 52px; }
+      .aw-row { padding: 40px 18px; gap: 10px; }
+      .aw-num { font-size: 52px; }
+      .aw-name { font-size: clamp(22px, 6.5vw, 40px); margin-bottom: 14px; }
+      .aw-desc { font-size: 14px; }
+      .aw-rank { font-size: 11px; padding: 4px 11px; }
+      /* View buttons: full width */
+      .aw-view-btn { width: 100%; justify-content: center; margin-top: 16px; }
+      /* Multi-button row */
+      div[style*="display:flex"][style*="gap:10px"] { flex-direction: column; margin-top: 16px; }
+      div[style*="display:flex"][style*="gap:10px"] .aw-view-btn { margin-top: 0; width: 100%; }
+      /* PDF modal: full-screen on mobile */
+      .pdf-modal {
+        width: 100vw !important;
+        height: 100vh !important;
+        border-radius: 0 !important;
+        max-width: none !important;
+      }
+      .pdf-modal-overlay.is-open { align-items: flex-end; }
+      .pdf-modal-title { font-size: 13px; }
+      .pdf-modal-download { display: none; }
     }
   </style>
 </head>

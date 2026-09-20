@@ -519,12 +519,39 @@
     }
 
     @media (max-width: 900px) {
-      .h-body { padding: 0 26px 60px; }
+      .h-body { padding: 0 22px 56px; }
       .h-cube-wrap { display: none; }
-      .about-inner { padding: 80px 26px; }
-      .about-layout { grid-template-columns: 1fr; gap: 44px; }
-      .edu-inner { padding: 80px 26px; }
+      .about-inner { padding: 72px 22px; }
+      .about-layout { grid-template-columns: 1fr; gap: 36px; }
+      .edu-inner { padding: 72px 22px; }
       .edu-grid { grid-template-columns: 1fr; }
+      .edu-card { padding: 40px 28px 36px; }
+    }
+
+    @media (max-width: 640px) {
+      /* Hero CTA: stack buttons full-width */
+      .h-cta { flex-direction: column; gap: 10px; }
+      .h-cta a { text-align: center; width: 100%; }
+
+      /* Location card: hide decorative map, simplify layout */
+      .hl-loc { flex-direction: column; padding: 32px 22px 26px; gap: 16px; }
+      .hl-loc-img { display: none; }
+      .hl-loc-content { margin-left: 0; }
+      .hl-loc-name { font-size: clamp(44px, 14vw, 64px); }
+      .hl-loc-coords { margin-left: 0; margin-top: 10px; }
+
+      /* Instagram card: stack vertically */
+      .hl-creator { flex-direction: column; align-items: flex-start; padding: 28px 22px; gap: 16px; }
+      .about-section .hl-creator { flex-direction: column; align-items: flex-start; padding: 28px 22px; gap: 16px; }
+      .hl-ig-photo { width: 90px; height: 90px; }
+      .hl-ig-count { font-size: 52px; }
+
+      /* About bio */
+      .about-bio p { font-size: 16px; }
+
+      /* Edu cards */
+      .edu-card-school { font-size: clamp(40px, 13vw, 72px); }
+      .edu-card-wm { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
       .h-cube { animation: none; }
