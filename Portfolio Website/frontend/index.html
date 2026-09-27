@@ -937,7 +937,7 @@
 
     @media (max-width: 900px) {
       .h-body { padding: 0 22px 56px; }
-      .h-cube-wrap { display: none; }
+      .h-cube-wrap { transform: translateY(-50%) scale(0.52); right: -2%; opacity: 0.55; }
       .about-inner { padding: 72px 22px; }
       .about-layout { grid-template-columns: 1fr; gap: 36px; }
       .edu-inner { padding: 72px 22px; }
@@ -960,7 +960,6 @@
       .exp-prev-title { font-size: clamp(32px, 8vw, 60px); }
       .exp-prev-card { padding: 28px 22px 44px; }
       .exp-prev-wm { display: none; }
-      .hl-ig-photo { display: none; }
       .colleges-inner { padding: 60px 22px 80px; }
       .social-grid { grid-template-columns: 1fr; }
       .exp-prev-inner { padding: 72px 22px 80px; }
@@ -997,13 +996,13 @@
 
       /* Location + Instagram */
       .hl-loc { flex-direction: column; padding: 28px 18px 22px; gap: 14px; }
-      .hl-loc-img { display: none; }
+      .hl-loc-img { display: block; width: 130px; opacity: 0.4; align-self: flex-start; }
       .hl-loc-content { margin-left: 0; }
       .hl-loc-name { font-size: clamp(40px, 13vw, 60px); }
       .hl-loc-coords { margin-left: 0; margin-top: 8px; }
       .hl-creator { flex-direction: row; align-items: center; padding: 24px 18px; gap: 18px; flex-wrap: wrap; }
       .hl-ig-count { font-size: 48px; }
-      .hl-ig-photo { display: none; }
+      .hl-ig-photo { display: block; width: 72px; height: 72px; }
 
       /* Education cards */
       .colleges-inner { padding: 48px 18px 60px; }
