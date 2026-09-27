@@ -302,6 +302,19 @@
       color: var(--red); font-weight: 600;
     }
 
+    /* CV CTA */
+    .ex-cv-cta {
+      display: flex;
+      justify-content: center;
+      padding: 40px 60px 56px;
+    }
+    .ex-cv-btn {
+      font-size: 15px;
+      padding: 16px 40px;
+      letter-spacing: 0.5px;
+      border-width: 2px;
+    }
+
     /* ---- Responsive ---- */
     @media (max-width: 900px) {
       .ex-hero { padding: 110px 22px 64px; }
@@ -326,6 +339,8 @@
       .ex-card-logo-wrap { width: 120px; height: 46px; }
       .ex-card-logo { width: 120px; height: 46px; }
       .ex-section-label { margin-bottom: 28px; }
+      .ex-cv-cta { padding: 32px 18px 48px; }
+      .ex-cv-btn { width: 100%; text-align: center; box-sizing: border-box; padding: 14px 24px; }
     }
   </style>
 </head>
@@ -502,6 +517,14 @@
       </div>
 
     </div>
+
+    <!-- CV Download CTA -->
+    <div class="ex-cv-cta">
+      <a href="assets/Aaryan_CHATURVEDI_General_Marketing_CV.pdf" download class="btn btn-outline-red ex-cv-btn">
+        Download My CV ↓
+      </a>
+    </div>
+
   </section>
 
   <script>

@@ -221,20 +221,23 @@
     @media (max-width: 900px) {
       .ct-inner { padding: 110px 22px 72px; }
       .ct-form-inner { grid-template-columns: 1fr; gap: 44px; padding: 72px 22px; }
+      .ct-word { font-size: clamp(56px, 15vw, 140px); }
+      .ct-links { margin-top: 40px; }
+      .ct-link { font-size: 16px; padding: 18px 0; }
     }
     @media (max-width: 640px) {
-      .ct-inner { padding: 96px 18px 60px; }
-      .ct-word { font-size: clamp(52px, 14vw, 140px); }
-      .ct-links { margin-top: 40px; }
-      .ct-link { padding: 18px 0; font-size: 15px; flex-wrap: wrap; gap: 4px; }
-      /* Prevent long email from overflowing */
-      .ct-link > div { overflow: hidden; }
-      .ct-link > div br + * { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: calc(100vw - 80px); }
-      .ct-link-arrow { font-size: 16px; }
-      .ct-form-inner { padding: 56px 18px; gap: 36px; }
-      .ct-form-tagline { font-size: clamp(30px, 9vw, 56px); }
+      .ct-inner { padding: 88px 18px 52px; }
+      .ct-word { font-size: clamp(48px, 13vw, 120px); }
+      .ct-links { margin-top: 32px; }
+      .ct-link { padding: 16px 0; font-size: 14px; flex-wrap: wrap; gap: 4px; }
+      .ct-link > div { overflow: hidden; flex: 1; min-width: 0; }
+      .ct-link > div br + * { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: calc(100vw - 72px); }
+      .ct-link-arrow { font-size: 15px; flex-shrink: 0; }
+      .ct-link-label { font-size: 10px; }
+      .ct-form-inner { padding: 52px 18px; gap: 32px; }
+      .ct-form-tagline { font-size: clamp(28px, 9vw, 52px); }
       .ct-form-body { font-size: 14px; }
-      .ct-submit { width: 100%; text-align: center; padding: 16px 24px; }
+      .ct-submit { width: 100%; text-align: center; padding: 16px 24px; box-sizing: border-box; }
     }
     @media (prefers-reduced-motion: reduce) {
       #ctCanvas { display: none; }
@@ -258,6 +261,18 @@
       </div>
 
       <div class="ct-links" id="ctLinks">
+        <a class="ct-link" href="assets/Aaryan_CHATURVEDI_General_Marketing_CV.pdf" download>
+          <div>
+            <span class="ct-link-label">
+              <svg class="ct-link-ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 2v8M5 7l3 3 3-3"/><rect x="2" y="11" width="12" height="3" rx="1"/>
+              </svg>
+              Get Aaryan's CV
+            </span><br>
+            Click here to download
+          </div>
+          <span class="ct-link-arrow">↓</span>
+        </a>
         <a class="ct-link" href="tel:+33769939039">
           <div>
             <span class="ct-link-label">

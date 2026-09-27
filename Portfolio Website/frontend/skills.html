@@ -156,89 +156,113 @@
       background: rgba(250,241,222,0.2);
     }
 
-    /* --- Tech grid --- */
-    .sk-tech-grid {
+    /* ===== SKILLS 3-PANEL LAYOUT ===== */
+    .sk-panels-section {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2px;
-      background: var(--line-on-cream);
-      border: 1px solid var(--line-on-cream);
+      grid-template-columns: repeat(3, 1fr);
     }
 
-    .sk-cat {
-      background: var(--cream);
-      padding: 38px 32px 44px;
-      opacity: 0;
-      transform: translateY(28px);
+    .sk-panel {
+      padding: 64px 48px 100px;
+      position: relative;
+      overflow: hidden;
     }
+    .sk-panel-cream { background: var(--cream); }
+    .sk-panel-red   { background: var(--red); }
+    .sk-panel-ink   { background: var(--ink); }
 
-    .sk-cat-head {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-    .sk-cat-icon {
-      width: 18px; height: 18px;
-      color: var(--red);
-      opacity: 0.5;
-      flex-shrink: 0;
-      transition: opacity 0.2s ease;
-    }
-    .sk-cat:hover .sk-cat-icon { opacity: 0.8; }
-
-    .sk-cat-num {
+    /* Watermark number */
+    .sk-panel-wm {
+      position: absolute;
+      bottom: -30px; right: -10px;
       font-family: 'Anton', sans-serif;
-      font-size: 11px;
-      color: var(--red);
-      opacity: 0.45;
-      letter-spacing: 1px;
+      font-size: 200px;
+      line-height: 1;
+      pointer-events: none; user-select: none;
     }
+    .sk-panel-cream .sk-panel-wm { color: var(--ink); opacity: 0.04; }
+    .sk-panel-red   .sk-panel-wm { color: var(--cream); opacity: 0.06; }
+    .sk-panel-ink   .sk-panel-wm { color: var(--cream); opacity: 0.04; }
 
-    .sk-cat-title {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--ink);
-      opacity: 0.7;
+    /* Panel icon */
+    .sk-panel-icon {
+      width: 34px; height: 34px;
+      margin-bottom: 30px;
+      display: block;
     }
+    .sk-panel-cream .sk-panel-icon { color: var(--red); }
+    .sk-panel-red   .sk-panel-icon { color: var(--cream); opacity: 0.6; }
+    .sk-panel-ink   .sk-panel-icon { color: var(--cream); opacity: 0.5; }
 
-    .sk-cat-rule {
-      border: none;
-      border-top: 1px solid var(--line-on-cream);
-      margin: 14px 0 22px;
+    /* Eyebrow tag */
+    .sk-panel-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; display: block; margin-bottom: 14px;
     }
+    .sk-panel-cream .sk-panel-tag { color: var(--red); opacity: 0.65; }
+    .sk-panel-red   .sk-panel-tag { color: var(--cream); opacity: 0.42; }
+    .sk-panel-ink   .sk-panel-tag { color: var(--cream); opacity: 0.35; }
 
-    .sk-chips {
+    /* Panel title */
+    .sk-panel-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(32px, 3.2vw, 52px);
+      line-height: 0.92;
+      display: block;
+      margin-bottom: 36px;
+    }
+    .sk-panel-cream .sk-panel-title { color: var(--ink); }
+    .sk-panel-red   .sk-panel-title { color: var(--cream); }
+    .sk-panel-ink   .sk-panel-title { color: var(--cream); }
+
+    /* Divider */
+    .sk-panel-rule {
+      border: none; margin: 0 0 32px;
+      border-top: 1px solid;
+    }
+    .sk-panel-cream .sk-panel-rule { border-color: rgba(34,7,5,0.18); }
+    .sk-panel-red   .sk-panel-rule { border-color: rgba(250,241,222,0.18); }
+    .sk-panel-ink   .sk-panel-rule { border-color: rgba(250,241,222,0.12); }
+
+    /* Chip container */
+    .sk-panel-chips {
       display: flex;
-      flex-direction: column;
-      gap: 9px;
-    }
-
-    .sk-chip {
-      display: inline-flex;
-      align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
-      font-size: 13.5px;
-      font-weight: 500;
-      padding: 10px 16px;
-      border: 1.5px solid var(--line-on-cream);
-      border-radius: 8px;
-      color: var(--ink);
-      cursor: default;
-      transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease, transform 0.22s ease;
-      will-change: transform;
-      width: fit-content;
-      opacity: 0;
-      transform: translateX(-12px);
+      position: relative;
+      z-index: 1;
     }
 
-    .sk-chip:hover {
-      background: var(--red);
-      color: var(--cream);
-      border-color: var(--red);
-      transform: translateX(8px) !important;
+    /* Chips */
+    .sk-panel-chip {
+      font-size: 12.5px; font-weight: 500;
+      padding: 8px 15px;
+      border-radius: 6px;
+      border: 1.5px solid;
+      cursor: default;
+      white-space: nowrap;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+    .sk-panel-cream .sk-panel-chip {
+      color: var(--ink); border-color: rgba(34,7,5,0.2);
+    }
+    .sk-panel-cream .sk-panel-chip:hover {
+      background: var(--red); color: var(--cream); border-color: var(--red);
+      transform: translateY(-2px);
+    }
+    .sk-panel-red .sk-panel-chip {
+      color: var(--cream); border-color: rgba(250,241,222,0.28);
+    }
+    .sk-panel-red .sk-panel-chip:hover {
+      background: rgba(250,241,222,0.15); border-color: rgba(250,241,222,0.6);
+      transform: translateY(-2px);
+    }
+    .sk-panel-ink .sk-panel-chip {
+      color: var(--cream); border-color: rgba(250,241,222,0.18);
+    }
+    .sk-panel-ink .sk-panel-chip:hover {
+      background: rgba(250,241,222,0.08); border-color: rgba(250,241,222,0.45);
+      transform: translateY(-2px);
     }
 
     /* --- Marquee --- */
@@ -399,16 +423,7 @@
       border-color: rgba(250,241,222,0.55);
     }
 
-    /* --- Red section (tech arsenal) --- */
-    .sk-red-section {
-      background: var(--red);
-      position: relative;
-      overflow: hidden;
-    }
-    .sk-red-section .sk-wrap { position: relative; z-index: 1; }
-    .sk-red-section .sk-label { color: var(--cream); opacity: 0.55; }
-    .sk-red-section .sk-label::after { background: rgba(250,241,222,0.22); }
-    .sk-red-section .sk-tech-grid { background: rgba(250,241,222,0.08); border-color: rgba(250,241,222,0.08); }
+    /* (sk-red-section replaced by sk-panels-section) */
 
     /* --- Ink dark section (languages) --- */
     .sk-dark-section {
@@ -430,18 +445,15 @@
     .sk-dark-section .sk-lang-grid { background: rgba(250,241,222,0.05); border-color: rgba(250,241,222,0.05); }
 
     /* --- Responsive --- */
-    @media (max-width: 1100px) {
-      .sk-tech-grid { grid-template-columns: repeat(2, 1fr); }
-    }
     @media (max-width: 900px) {
       .sk-hero { padding: 110px 22px 0; }
       .sk-wrap { padding: 72px 22px; }
       .sk-hero-meta { flex-direction: column; align-items: flex-start; gap: 20px; }
       .sk-hero-desc { text-align: left; max-width: 100%; font-size: 14px; }
       .sk-stat-row { gap: 28px; }
-      .sk-tech-grid { grid-template-columns: 1fr; }
+      .sk-panels-section { grid-template-columns: 1fr; }
+      .sk-panel { padding: 48px 28px 72px; }
       .sk-lang-grid { grid-template-columns: 1fr; }
-      .sk-cat { padding: 28px 20px 32px; }
       .sk-lang-card { padding: 32px 22px; }
     }
     @media (max-width: 640px) {
@@ -450,7 +462,11 @@
       .sk-stat-num { font-size: 40px; }
       .sk-stat-label { font-size: 10px; letter-spacing: 1.5px; }
       .sk-stat-row { gap: 22px; flex-wrap: wrap; }
-      .sk-chip { font-size: 12px; padding: 9px 13px; }
+      .sk-panel { padding: 36px 18px 56px; }
+      .sk-panel-title { font-size: clamp(28px, 9vw, 44px); margin-bottom: 24px; }
+      .sk-panel-icon { width: 26px; height: 26px; margin-bottom: 20px; }
+      .sk-panel-wm { display: none; }
+      .sk-panel-chip { font-size: 12px; padding: 6px 13px; }
       .sk-lang-name { font-size: 42px; }
       .sk-lang-card { padding: 26px 18px; gap: 20px; }
       .sk-ring-wrap { width: 60px; height: 60px; }
@@ -502,117 +518,104 @@
     </div>
   </section>
 
-  <!-- ======= TECHNICAL SKILLS ======= -->
-  <section class="sk-red-section">
-    <div class="sk-wrap">
-      <div class="sk-label" id="skLabelTech">Technical Arsenal</div>
-      <div class="sk-tech-grid">
+  <!-- ======= TECHNICAL SKILLS (3 panels) ======= -->
+  <section class="sk-panels-section" id="skPanelsSection">
 
-        <div class="sk-cat" data-cat="0">
-          <div class="sk-cat-head">
-            <span class="sk-cat-num">01</span>
-            <!-- Megaphone: Performance & Ads -->
-            <svg class="sk-cat-icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 4L5.5 7.5H3.5a.8.8 0 0 0-.8.8v1.4a.8.8 0 0 0 .8.8h2L14 14V4z"/>
-              <path d="M5.5 10.5l.8 3.5"/>
-              <path d="M16 6.5a3.5 3.5 0 0 1 0 5"/>
-            </svg>
-            <span class="sk-cat-title">Performance &amp; Ads</span>
-          </div>
-          <hr class="sk-cat-rule">
-          <div class="sk-chips">
-            <span class="sk-chip">Google Ads</span>
-            <span class="sk-chip">Meta Ads Manager</span>
-            <span class="sk-chip">SEO / Semrush</span>
-            <span class="sk-chip">AI / LLM Tools</span>
-          </div>
-        </div>
-
-        <div class="sk-cat" data-cat="1">
-          <div class="sk-cat-head">
-            <span class="sk-cat-num">02</span>
-            <!-- Bar chart: Analytics & Data -->
-            <svg class="sk-cat-icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2"   y="10" width="3" height="6" rx="0.4"/>
-              <rect x="7.5" y="6"  width="3" height="10" rx="0.4"/>
-              <rect x="13"  y="2"  width="3" height="14" rx="0.4"/>
-            </svg>
-            <span class="sk-cat-title">Analytics &amp; Data</span>
-          </div>
-          <hr class="sk-cat-rule">
-          <div class="sk-chips">
-            <span class="sk-chip">Google Analytics</span>
-            <span class="sk-chip">Power BI</span>
-            <span class="sk-chip">Tableau</span>
-            <span class="sk-chip">SQL</span>
-            <span class="sk-chip">Looker Studio</span>
-            <span class="sk-chip">Excel (Advanced)</span>
-            <span class="sk-chip">Python</span>
-            <span class="sk-chip">VBA</span>
-          </div>
-        </div>
-
-        <div class="sk-cat" data-cat="2">
-          <div class="sk-cat-head">
-            <span class="sk-cat-num">03</span>
-            <!-- Pen nib: Design & Creative -->
-            <svg class="sk-cat-icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M2.5 15.5l3.5-.8L15 6.7l-3.2-3.2L2.8 12.5l-.3 3z"/>
-              <path d="M11.8 3.5l2 2L15 4.3l-1.3-1.3-1.9.5z"/>
-              <line x1="9" y1="6" x2="12" y2="9"/>
-            </svg>
-            <span class="sk-cat-title">Design &amp; Creative</span>
-          </div>
-          <hr class="sk-cat-rule">
-          <div class="sk-chips">
-            <span class="sk-chip">Figma</span>
-            <span class="sk-chip">Canva</span>
-            <span class="sk-chip">Photoshop</span>
-            <span class="sk-chip">CapCut</span>
-            <span class="sk-chip">Premiere Pro</span>
-          </div>
-        </div>
-
-        <div class="sk-cat" data-cat="3">
-          <div class="sk-cat-head">
-            <span class="sk-cat-num">04</span>
-            <!-- Code brackets: Web & Productivity -->
-            <svg class="sk-cat-icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6,5 2,9 6,13"/>
-              <polyline points="12,5 16,9 12,13"/>
-              <line x1="10.5" y1="3.5" x2="7.5" y2="14.5"/>
-            </svg>
-            <span class="sk-cat-title">Web &amp; Productivity</span>
-          </div>
-          <hr class="sk-cat-rule">
-          <div class="sk-chips">
-            <span class="sk-chip">HTML</span>
-            <span class="sk-chip">WordPress</span>
-            <span class="sk-chip">PowerPoint</span>
-          </div>
-        </div>
-
+    <!-- Panel 1: Analytics & Data (cream) -->
+    <div class="sk-panel sk-panel-cream" id="skPanel1">
+      <svg class="sk-panel-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="17" width="5" height="12" rx="0.8"/>
+        <rect x="13" y="9" width="5" height="20" rx="0.8"/>
+        <rect x="23" y="2" width="5" height="27" rx="0.8"/>
+        <line x1="1" y1="30" x2="31" y2="30"/>
+      </svg>
+      <span class="sk-panel-tag">01</span>
+      <span class="sk-panel-title">ANALYTICS<br>&amp; DATA</span>
+      <hr class="sk-panel-rule">
+      <div class="sk-panel-chips">
+        <span class="sk-panel-chip">Google Analytics</span>
+        <span class="sk-panel-chip">Power BI</span>
+        <span class="sk-panel-chip">Tableau</span>
+        <span class="sk-panel-chip">SQL</span>
+        <span class="sk-panel-chip">Looker Studio</span>
+        <span class="sk-panel-chip">Excel (Advanced)</span>
+        <span class="sk-panel-chip">VBA</span>
+        <span class="sk-panel-chip">Google Ads</span>
+        <span class="sk-panel-chip">Meta Ads Manager</span>
+        <span class="sk-panel-chip">SEO / Semrush</span>
+        <span class="sk-panel-chip">GEO</span>
       </div>
+      <span class="sk-panel-wm">01</span>
     </div>
+
+    <!-- Panel 2: Design & Creativity (red) -->
+    <div class="sk-panel sk-panel-red" id="skPanel2">
+      <svg class="sk-panel-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 28l6.5-1.5L27 10.5 21.5 5 5 21.5 4 28z"/>
+        <line x1="16" y1="10" x2="22" y2="16"/>
+        <circle cx="27.5" cy="4.5" r="2.5"/>
+      </svg>
+      <span class="sk-panel-tag">02</span>
+      <span class="sk-panel-title">DESIGN &amp;<br>CREATIVITY</span>
+      <hr class="sk-panel-rule">
+      <div class="sk-panel-chips">
+        <span class="sk-panel-chip">Figma</span>
+        <span class="sk-panel-chip">Canva</span>
+        <span class="sk-panel-chip">Photoshop</span>
+        <span class="sk-panel-chip">CapCut</span>
+        <span class="sk-panel-chip">Premiere Pro</span>
+      </div>
+      <span class="sk-panel-wm">02</span>
+    </div>
+
+    <!-- Panel 3: Tech & Productivity (ink) -->
+    <div class="sk-panel sk-panel-ink" id="skPanel3">
+      <svg class="sk-panel-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="10,7 3,16 10,25"/>
+        <polyline points="22,7 29,16 22,25"/>
+        <line x1="19" y1="4" x2="13" y2="28"/>
+      </svg>
+      <span class="sk-panel-tag">03</span>
+      <span class="sk-panel-title">TECH &amp;<br>PRODUCTIVITY</span>
+      <hr class="sk-panel-rule">
+      <div class="sk-panel-chips">
+        <span class="sk-panel-chip">HTML</span>
+        <span class="sk-panel-chip">JavaScript</span>
+        <span class="sk-panel-chip">Python</span>
+        <span class="sk-panel-chip">SPSS</span>
+        <span class="sk-panel-chip">WordPress</span>
+        <span class="sk-panel-chip">MS Office</span>
+        <span class="sk-panel-chip">PowerPoint</span>
+        <span class="sk-panel-chip">AI / LLM Tools</span>
+      </div>
+      <span class="sk-panel-wm">03</span>
+    </div>
+
   </section>
 
   <!-- ======= COMPETENCIES MARQUEE ======= -->
   <div class="sk-marquee-band">
     <div class="sk-marquee-track">
       <div class="sk-marquee-item"><span class="sk-marquee-text">Performance Marketing</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Content Creation</span><span class="sk-marquee-sep"></span></div>
       <div class="sk-marquee-item"><span class="sk-marquee-text">Data-Driven Optimisation</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Brand Strategy</span><span class="sk-marquee-sep"></span></div>
       <div class="sk-marquee-item"><span class="sk-marquee-text">Agile Methodologies</span><span class="sk-marquee-sep"></span></div>
       <div class="sk-marquee-item"><span class="sk-marquee-text">Cross-Team Collaboration</span><span class="sk-marquee-sep"></span></div>
       <div class="sk-marquee-item"><span class="sk-marquee-text">Strategic Thinking</span><span class="sk-marquee-sep"></span></div>
       <div class="sk-marquee-item"><span class="sk-marquee-text">Attention to Detail</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Campaign Management</span><span class="sk-marquee-sep"></span></div>
       <div class="sk-marquee-item"><span class="sk-marquee-text">Communication</span><span class="sk-marquee-sep"></span></div>
       <!-- duplicate for seamless loop -->
       <div class="sk-marquee-item"><span class="sk-marquee-text">Performance Marketing</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Content Creation</span><span class="sk-marquee-sep"></span></div>
       <div class="sk-marquee-item"><span class="sk-marquee-text">Data-Driven Optimisation</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Brand Strategy</span><span class="sk-marquee-sep"></span></div>
       <div class="sk-marquee-item"><span class="sk-marquee-text">Agile Methodologies</span><span class="sk-marquee-sep"></span></div>
       <div class="sk-marquee-item"><span class="sk-marquee-text">Cross-Team Collaboration</span><span class="sk-marquee-sep"></span></div>
       <div class="sk-marquee-item"><span class="sk-marquee-text">Strategic Thinking</span><span class="sk-marquee-sep"></span></div>
       <div class="sk-marquee-item"><span class="sk-marquee-text">Attention to Detail</span><span class="sk-marquee-sep"></span></div>
+      <div class="sk-marquee-item"><span class="sk-marquee-text">Campaign Management</span><span class="sk-marquee-sep"></span></div>
       <div class="sk-marquee-item"><span class="sk-marquee-text">Communication</span><span class="sk-marquee-sep"></span></div>
     </div>
   </div>
@@ -734,7 +737,7 @@
         }
       });
     }
-    animateCount(document.getElementById('cnt1'), 20, '+');
+    animateCount(document.getElementById('cnt1'), 24, '+');
     animateCount(document.getElementById('cnt2'), 3, '');
     animateCount(document.getElementById('cnt3'), 9, '');
 

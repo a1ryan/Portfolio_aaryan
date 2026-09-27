@@ -12,7 +12,7 @@
       <div class="navlinks" id="navLinks">
         <a href="index.html"      data-page="home">Overview</a>
         <a href="experience.html" data-page="experience">Experience</a>
-        <a href="awards.html"     data-page="awards">Awards</a>
+        <a href="awards.html"     data-page="awards">Projects</a>
         <a href="skills.html"     data-page="skills">Skills</a>
         <a href="approach.html"   data-page="approach">Approach</a>
         <a href="contact.html"    data-page="contact">Contact</a>
