@@ -1327,15 +1327,17 @@
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
+    // Always start at top (prevents browser scroll restoration from jumping mid-page)
+    if (history.scrollRestoration) history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+
     // ---- Canvas particle network ----
     const canvas = document.getElementById('heroCanvas');
     const ctx = canvas.getContext('2d');
 
     function resizeCanvas() {
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width  = canvas.offsetWidth  * dpr;
-      canvas.height = canvas.offsetHeight * dpr;
-      ctx.scale(dpr, dpr);
+      canvas.width  = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
     }
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
