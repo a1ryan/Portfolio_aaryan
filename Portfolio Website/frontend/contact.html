@@ -238,6 +238,10 @@
       .ct-form-tagline { font-size: clamp(28px, 9vw, 52px); }
       .ct-form-body { font-size: 14px; }
       .ct-submit { width: 100%; text-align: center; padding: 16px 24px; box-sizing: border-box; }
+      /* Prevent iOS auto-zoom on inputs (requires font-size >= 16px) */
+      .ct-field input,
+      .ct-field textarea { font-size: 16px; }
+      .ct-field { margin-bottom: 24px; }
     }
     @media (prefers-reduced-motion: reduce) {
       #ctCanvas { display: none; }

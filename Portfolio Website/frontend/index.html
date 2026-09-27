@@ -973,16 +973,27 @@
       .h-body { padding: 0 18px 48px; }
       .h-cta { flex-direction: column; gap: 10px; }
       .h-cta a { text-align: center; width: 100%; box-sizing: border-box; }
+      .h-scroll { display: none; }
 
       /* Headline+photo section */
       .intro-hl-inner { padding: 56px 18px 24px; }
       .intro-hl-row { gap: 24px; }
-      .intro-photo-wrap { width: 160px; height: 160px; align-self: flex-start; }
+      .intro-photo-wrap { width: 160px; height: 160px; align-self: center; }
+      .edu-hl { font-size: clamp(28px, 8.5vw, 60px); }
+      .edu-hl-accent { font-size: clamp(32px, 10vw, 80px); }
 
       /* Bio section */
       .intro-inner { padding: 24px 18px 36px; }
       .intro-bio-grid { gap: 14px; }
       .intro-bio-label { display: none; }
+
+      /* Tagline overflow fix — allow Marketing × Data × AI to wrap */
+      .about-tl-row { flex-wrap: wrap; gap: 0 8px; }
+      .about-tl-word { white-space: normal; }
+      .about-tl-sub { font-size: 11px; letter-spacing: 1.5px; margin-top: 10px; }
+
+      /* View My Experience button: full width on mobile */
+      #aboutBody > .btn { display: block; text-align: center; margin-top: 24px; }
 
       /* Location + Instagram */
       .hl-loc { flex-direction: column; padding: 28px 18px 22px; gap: 14px; }
@@ -996,8 +1007,11 @@
 
       /* Education cards */
       .colleges-inner { padding: 48px 18px 60px; }
+      .edu-headline { margin-bottom: 40px; }
+      .edu-profile-wrap { width: 140px; height: 140px; align-self: center; }
       .edu-card { padding: 32px 20px 28px; }
       .edu-card-school { font-size: clamp(40px, 13vw, 72px); }
+      .edu-card-degree { font-size: 15px; }
       .edu-card-wm { display: none; }
       .edu-bridge { padding: 0 18px; }
 
@@ -1325,7 +1339,9 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    const dots = Array.from({ length: 70 }, () => ({
+    const isMobileDevice = window.matchMedia('(max-width: 768px)').matches;
+    const dotCount = isMobileDevice ? 28 : 70;
+    const dots = Array.from({ length: dotCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       r: Math.random() * 2 + 1.5,
