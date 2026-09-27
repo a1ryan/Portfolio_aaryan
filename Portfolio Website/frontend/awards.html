@@ -71,7 +71,7 @@
     }
     .aw-cream::after { background: rgba(163,35,29,0.04); }
     .aw-red::after   { background: rgba(250,241,222,0.06); }
-    .aw-row:hover::after { transform: scaleX(1); }
+    @media(hover:hover){.aw-row:hover::after { transform: scaleX(1); }}
 
     /* Left accent bar on hover */
     .aw-row::before {
@@ -85,7 +85,7 @@
     }
     .aw-cream::before { background: var(--red); }
     .aw-red::before   { background: var(--cream); }
-    .aw-row:hover::before { transform: scaleY(1); }
+    @media(hover:hover){.aw-row:hover::before { transform: scaleY(1); }}
 
     .aw-cream { background: var(--cream); color: var(--ink); }
     .aw-red   { background: var(--red);   color: var(--cream); }
@@ -108,7 +108,7 @@
     }
     .aw-cream .aw-num { -webkit-text-stroke-color: rgba(36,18,16,0.14); }
     .aw-red   .aw-num { -webkit-text-stroke-color: rgba(250,241,222,0.22); }
-    .aw-row:hover .aw-num { transform: scale(1.04) translateX(4px); }
+    @media(hover:hover){.aw-row:hover .aw-num { transform: scale(1.04) translateX(4px); }}
 
     .aw-content {
       position: relative; z-index: 1;

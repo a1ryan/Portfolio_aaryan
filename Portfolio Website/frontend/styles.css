@@ -168,13 +168,16 @@ nav.scrolled .navlinks a{color:var(--red);}
   touch-action:manipulation;
   -webkit-tap-highlight-color:transparent;
 }
-.btn:hover{transform:translateY(-2px);}
 .btn-solid{background:var(--cream);color:var(--red);}
-.btn-solid:hover{background:transparent;color:var(--cream);}
 .btn-ghost{color:var(--cream);}
-.btn-ghost:hover{background:var(--cream);color:var(--red);}
 .btn-outline-red{border:1.5px solid var(--red);color:var(--red);}
-.btn-outline-red:hover{background:var(--red);color:var(--cream);}
+/* Only apply hover styles on devices with a real pointer (not touch) */
+@media(hover:hover){
+  .btn:hover{transform:translateY(-2px);}
+  .btn-solid:hover{background:transparent;color:var(--cream);}
+  .btn-ghost:hover{background:var(--cream);color:var(--red);}
+  .btn-outline-red:hover{background:var(--red);color:var(--cream);}
+}
 
 /* ---------- Section shell ---------- */
 section{position:relative;}

@@ -101,13 +101,15 @@
       transform-origin: left;
       transition: transform 0.4s ease;
     }
-    .ct-link:hover::before { transform: scaleX(1); }
-    .ct-link:hover { opacity: 0.85; }
+    @media(hover:hover){
+      .ct-link:hover::before { transform: scaleX(1); }
+      .ct-link:hover { opacity: 0.85; }
+      .ct-link:hover .ct-link-arrow { transform: translate(4px, -4px); }
+    }
     .ct-link-arrow {
       font-size: 20px;
       transition: transform 0.3s ease;
     }
-    .ct-link:hover .ct-link-arrow { transform: translate(4px, -4px); }
     .ct-link-label {
       font-size: 11px; font-weight: 600;
       letter-spacing: 2px; text-transform: uppercase;
