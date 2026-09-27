@@ -1333,14 +1333,17 @@
     const ctx = canvas.getContext('2d');
 
     function resizeCanvas() {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width  = canvas.offsetWidth  * dpr;
+      canvas.height = canvas.offsetHeight * dpr;
+      ctx.scale(dpr, dpr);
     }
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
     const isMobileDevice = window.matchMedia('(max-width: 768px)').matches;
-    const dotCount = isMobileDevice ? 28 : 70;
+    const dotCount  = isMobileDevice ? 28 : 70;
+    const lineWidth = isMobileDevice ? 0.4 : 1;
     const dots = Array.from({ length: dotCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -1371,7 +1374,7 @@
           const d  = Math.sqrt(dx * dx + dy * dy);
           if (d < 180) {
             ctx.strokeStyle = `rgba(250,241,222,${0.5 * (1 - d / 180)})`;
-            ctx.lineWidth = 1;
+            ctx.lineWidth = lineWidth;
             ctx.beginPath();
             ctx.moveTo(dots[i].x, dots[i].y);
             ctx.lineTo(dots[j].x, dots[j].y);
@@ -1390,7 +1393,7 @@
           if (dist < CURSOR_RADIUS) {
             const alpha = 0.65 * (1 - dist / CURSOR_RADIUS);
             ctx.strokeStyle = `rgba(250,241,222,${alpha})`;
-            ctx.lineWidth = 1;
+            ctx.lineWidth = lineWidth;
             ctx.beginPath();
             ctx.moveTo(d.x, d.y);
             ctx.lineTo(mouse.x, mouse.y);
