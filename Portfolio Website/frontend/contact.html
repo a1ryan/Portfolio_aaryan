@@ -424,9 +424,9 @@
       scrollTrigger: { trigger: '#ctFormRight', start: 'top 82%', once: true }
     });
 
-    // ---- Magnetic submit ----
+    // ---- Magnetic submit (pointer devices only) ----
     const submitBtn = document.querySelector('.ct-submit');
-    if (submitBtn) {
+    if (submitBtn && window.matchMedia('(hover: hover)').matches) {
       submitBtn.addEventListener('mousemove', e => {
         const r = submitBtn.getBoundingClientRect();
         const x = (e.clientX - r.left - r.width / 2) * 0.4;

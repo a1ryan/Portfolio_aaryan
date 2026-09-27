@@ -449,7 +449,8 @@
       scrollTrigger: { trigger: '#apPrinciples', start: 'top 80%', once: true }
     });
 
-    // ---- 3D tilt on principle cards ----
+    // ---- 3D tilt on principle cards (pointer devices only) ----
+    if (window.matchMedia('(hover: hover)').matches) {
     document.querySelectorAll('[data-tilt]').forEach(card => {
       card.addEventListener('mousemove', e => {
         const r = card.getBoundingClientRect();
@@ -467,7 +468,8 @@
           ease: 'elastic.out(1, 0.4)', duration: 0.9
         });
       });
-    });
+    }); // end forEach
+    } // end hover check
 
     // ---- Closing tagline ----
     gsap.to('.ap-close-word', {
